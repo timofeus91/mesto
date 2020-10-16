@@ -1,0 +1,14 @@
+
+.elements__text {
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    color: rgb(00, 00, 00);
+    padding: 0;
+    margin: 25px 0 31px 21px;
+    max-width: 216px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

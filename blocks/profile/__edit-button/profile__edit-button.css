@@ -3,5 +3,11 @@
     width: 24px;
     height: 24px;
     padding: 0;
+    background-image: url('../../../images/Edit\ Button.svg');
+    background-color: rgb(00, 00, 00);
+    background-repeat: no-repeat;
     
+    border: none;
+    padding: 0;
+    margin: 34px 0 0 17px;
 }
