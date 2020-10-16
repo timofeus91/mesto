@@ -10,4 +10,11 @@
     border: none;
     padding: 0;
     margin: 34px 0 0 17px;
+    cursor: pointer;
+}
+
+.profile__edit-button:hover {
+    opacity: 0.4;
+    transition: opacity 0.5s;
+
 }

@@ -10,4 +10,11 @@
     
     padding: 0;
     margin: 35px 0 0 253px;
+    cursor: pointer;
+}
+
+.profile__add-button:hover {
+    opacity: 0.4;
+    transition: opacity 0.5s;
+
 }
