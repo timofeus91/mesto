@@ -3,5 +3,12 @@
     margin: 0;
     padding: 0;
     width: 100%;
+    border: none;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgb(00, 00, 00);
+    border-bottom: 1px solid rgba(00, 00, 00, 0.2);
 
 }

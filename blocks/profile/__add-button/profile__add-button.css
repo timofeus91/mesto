@@ -7,7 +7,7 @@
     background-color: rgb(00, 00, 00);
     background-repeat: no-repeat;
     border: 2px solid rgb(255, 255, 255);
-    
+    background-size: cover;
     padding: 0;
     margin: 35px 0 0 253px;
     cursor: pointer;
@@ -17,4 +17,18 @@
     opacity: 0.4;
     transition: opacity 0.5s;
 
+}
+
+@media screen and (max-width:900px) {
+    .profile__add-button {
+        margin-left: 150px;
+    }
+}
+
+@media screen and (max-width:712px) {
+    .profile__add-button {
+        margin-left: 15px;
+        width: 120px;
+        height: 40px;
+    }
 }

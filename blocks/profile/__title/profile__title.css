@@ -8,3 +8,12 @@
     margin: 0;
     max-width: 295px;
 }
+
+@media screen and (max-width:712px) {
+    .profile__title {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 27px;
+
+    }
+}

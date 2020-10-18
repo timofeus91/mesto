@@ -6,7 +6,7 @@
     background-image: url('../../../images/Edit\ Button.svg');
     background-color: rgb(00, 00, 00);
     background-repeat: no-repeat;
-    
+    background-size: cover;
     border: none;
     padding: 0;
     margin: 34px 0 0 17px;
@@ -17,4 +17,12 @@
     opacity: 0.4;
     transition: opacity 0.5s;
 
+}
+
+@media screen and (max-width:712px) {
+    .profile__edit-button {
+        width: 18px;
+        height: 18px;
+        margin-left: 1px;
+    }
 }

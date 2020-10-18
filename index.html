@@ -13,22 +13,25 @@
 
 <body>
     <div class='page'>
-        <header class='header'>
+        <header class='header page__header'>
             <img class='header__logo' src='./images/Vector-mesto-logo.svg' alt='Логотип'>
         </header>
 
         <main class='content'>
-            <section class='profile'>
+            <section class='profile page__profile'>
                 <img class='profile__avatar' src='./images/megacat.jpg' alt='Кот'>
                 <div class='profile__info'>
+                    <div class='profile__button-title'>
                     <h1 class='profile__title'>Бэтмен</h1>
+                    <button class='profile__edit-button' type='button'></button>
+                    </div>
                     <p class='profile__subtitle'>Властитель Ночи</p>
                 </div>
-                <button class='profile__edit-button' type='button'></button>
+                
                 <button class='profile__add-button' type='button'></button>
 
             </section>
-            <section class='elements'>
+            <section class='elements page__elements'>
                 <ul class='elements__list'>
                 <li class='elements__item'>
                     <img class="elements__photo" src='./images/gatchina.jpg' alt='Гатчина'>
@@ -75,7 +78,7 @@
                 </ul>
             </section>
         </main>
-        <footer class="footer">
+        <footer class="footer page__footer">
             <p class='footer__text'>&copy; 2020 Mesto Russia</p>
         </footer>
 

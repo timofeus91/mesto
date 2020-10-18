@@ -2,5 +2,14 @@
 .profile__info {
     padding: 0;
     margin: auto 0 auto 30px;
-    /* от верхней границы 18пикселей от нижней скорее столько же. Если вдруг не поможет убирание маргинов и пэдингов у текстовых тегов */
+    
+}
+
+
+
+
+@media screen and (max-width:540px) {
+    .profile__info {
+        margin: 14px auto 0;
+    }
 }

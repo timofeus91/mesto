@@ -2,21 +2,38 @@ console.log('Hello world');
 
 // все нужные переменные
 
-let OpenPopup = document.querySelector('.profile__edit-button');
-let ClosePopup = document.querySelector('.popup__close');
-let SavaChangesPopup = document.querySelector('.popup__save');
-let NamePopup = document.querySelector('.popup__name');
-let ProfessionPopup = document.querySelector('.popup__profession');
+let openPopup = document.querySelector('.profile__edit-button');
+let closePopup = document.querySelector('.popup__close');
+let saveChangesPopup = document.querySelector('.popup__form');
+let namePopup = document.querySelector('.popup__name');
+let professionPopup = document.querySelector('.popup__profession');
 let popup = document.querySelector('.popup');
-let NameFromDoc = document.querySelector('.profile__title');
-let ProfessionFromDoc = document.querySelector('.profile__profile__subtitle');
+let nameFromDoc = document.querySelector('.profile__title');
+let professionFromDoc = document.querySelector('.profile__subtitle');
 
 
-const PopupToggle = () => {
+
+const popupToggle = () => {
+    
     popup.classList.toggle('popup_opened')
+    namePopup.value = nameFromDoc.textContent;
+    professionPopup.value = professionFromDoc.textContent;
 }
 
-OpenPopup.addEventListener("click", PopupToggle)
-ClosePopup.addEventListener("click", PopupToggle)
+
+
+function formSubmitHandler (evt) {
+    evt.preventDefault();
+    nameFromDoc.textContent = namePopup.value;
+    professionFromDoc.textContent = professionPopup.value;
+    popupToggle();
+    namePopup.value = '';
+    professionPopup.value = '';
+}
+
+
+openPopup.addEventListener("click", popupToggle)
+closePopup.addEventListener("click", popupToggle)
+saveChangesPopup.addEventListener('submit', formSubmitHandler)
 
 
