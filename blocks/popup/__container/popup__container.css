@@ -10,3 +10,11 @@
     width: 100%;
 
 }
+
+
+@media screen and (max-width:540px) {
+    .popup {
+        max-width: 282px;
+        
+    }
+}
