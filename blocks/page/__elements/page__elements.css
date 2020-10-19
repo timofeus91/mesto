@@ -1,0 +1,12 @@
+
+.page__elements {
+    padding: 0;
+    margin: 46px auto 0;
+}
+
+
+@media screen and (max-width:540px) {
+    .page__elements {
+        margin-top: 36px;
+    }
+}

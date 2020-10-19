@@ -1,16 +1,20 @@
 
 .footer{
-    margin: 72px auto 0;
-    padding: 0 0 60px;
+    
     max-width: 882px;
 }
 
 
+@media screen and (max-width:886px) {
+    .footer {
+        
+        max-width: 600px;
+    }
+}
 
-@media screen and (max-width:540px) {
-    .popup__save {
-        margin-top: 48px;
-        padding-bottom: 36px;
+@media screen and (max-width:600px) {
+    .footer {
+        
         max-width: 282px;
     }
 }

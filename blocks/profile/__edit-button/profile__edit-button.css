@@ -9,7 +9,7 @@
     background-size: cover;
     border: none;
     padding: 0;
-    margin: 34px 0 0 17px;
+    margin: 0 0 12px 17px;
     cursor: pointer;
 }
 
@@ -24,13 +24,7 @@
         width: 18px;
         height: 18px;
         margin-left: 1px;
+        margin-bottom: 16.5px;
     }
 }
 
-@media screen and (max-width:540px) {
-    .profile__edit-button {
-        position: absolute;
-        top: 163px;
-        right: 70px;
-    }
-}

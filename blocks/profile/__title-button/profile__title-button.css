@@ -1,0 +1,12 @@
+
+.profile__title-button {
+    display: flex;
+    align-items: flex-end;
+}
+
+
+@media screen and (max-width:540px) {
+    .profile__title-button {
+        justify-content: center;
+    }
+}

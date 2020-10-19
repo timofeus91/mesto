@@ -6,6 +6,20 @@
     grid-gap: 21px 18px;
     grid-template-columns: repeat(auto-fit, 282px);
     padding: 0;
-    margin: 0;
+    margin: 0 auto 0;
     
+}
+
+
+@media screen and (max-width:886px) {
+    .elements__list {
+        grid-column-gap: 36px;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .elements {
+        display: flex;
+        flex-direction: column;
+    }
 }
