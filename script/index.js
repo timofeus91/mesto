@@ -1,6 +1,4 @@
-console.log('Hello world');
 
-// все нужные переменные
 
 let openPopup = document.querySelector('.profile__edit-button');
 let closePopup = document.querySelector('.popup__close');
