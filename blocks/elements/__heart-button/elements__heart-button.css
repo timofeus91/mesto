@@ -1,0 +1,18 @@
+
+.elements__heart-button {
+    padding: 0;
+    margin: 31px 22px 30px auto;
+    background-image: url('../../../images/Vector-heart.svg');
+    background-repeat: no-repeat;
+    cursor: pointer;
+    width: 21px;
+    height: 18px;
+    border: none;
+    background-color: rgb(255, 255, 255);
+}
+
+.elements__heart-button:hover {
+    opacity: 0.6;
+    transition: opacity 0.5s;
+
+}

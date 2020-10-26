@@ -9,12 +9,13 @@
     background-size: cover;
     border: none;
     padding: 0;
-    margin: 0 0 12px 17px;
+    margin-left: 17px;
     cursor: pointer;
+    
 }
 
 .profile__edit-button:hover {
-    opacity: 0.4;
+    opacity: 0.6;
     transition: opacity 0.5s;
 
 }
@@ -24,7 +25,7 @@
         width: 18px;
         height: 18px;
         margin-left: 1px;
-        margin-bottom: 16.5px;
+        
     }
 }
 

@@ -9,12 +9,12 @@
   }
 
   @font-face {
-    font-family: 'Inter';
-    font-style:  normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url("./Inter\ Web/Inter-Bold.woff2?v=3.13") format("woff2"),
-         url("./Inter\ Web/Inter-Bold.woff?v=3.13") format("woff");
+     font-family: 'Inter';
+     font-style:  normal;
+     font-weight: 500;
+     font-display: swap;
+     src: url("./Inter\ Web/Inter-Medium.woff2?v=3.13") format("woff2"),
+          url("./Inter\ Web/Inter-Medium.woff?v=3.13") format("woff");
   }
 
   @font-face {

@@ -1,9 +1,15 @@
 
 .profile__title-button {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    max-width: 336px;
 }
 
+@media screen and (max-width:900px) {
+    .profile__title-button {
+        max-width: 295px;
+    }
+}
 
 @media screen and (max-width:540px) {
     .profile__title-button {
