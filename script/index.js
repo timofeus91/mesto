@@ -1,9 +1,3 @@
-//let saveChangesPopup = document.forms.popup-form;
-//console.log(saveChangesPopup);
-//let namePopup = saveChangesPopup.elements.popup-name;
-//console.log(namePopup);
-//let professionPopup = saveChangesPopup.elements.popup-profession;
-//console.log(professionPopup);
 
 let saveChangesPopup = document.querySelector('.popup__form');
 let namePopup = document.querySelector('.popup__text_name');
