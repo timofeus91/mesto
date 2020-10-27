@@ -1,10 +1,16 @@
+//let saveChangesPopup = document.forms.popup-form;
+//console.log(saveChangesPopup);
+//let namePopup = saveChangesPopup.elements.popup-name;
+//console.log(namePopup);
+//let professionPopup = saveChangesPopup.elements.popup-profession;
+//console.log(professionPopup);
 
+let saveChangesPopup = document.querySelector('.popup__form');
+let namePopup = document.querySelector('.popup__text_name');
+let professionPopup = document.querySelector('.popup__text_profession');
 
 let openPopup = document.querySelector('.profile__edit-button');
 let closePopup = document.querySelector('.popup__close');
-let saveChangesPopup = document.querySelector('.popup__form');
-let namePopup = document.querySelector('.popup__text');
-let professionPopup = document.querySelector('.popup__text_place');
 let popup = document.querySelector('.popup');
 let nameFromDoc = document.querySelector('.profile__title');
 let professionFromDoc = document.querySelector('.profile__subtitle');
@@ -12,24 +18,30 @@ let professionFromDoc = document.querySelector('.profile__subtitle');
 
 
 const popupToggle = () => {
-    
-    popup.classList.toggle('popup_opened')
-    namePopup.value = nameFromDoc.textContent;
-    professionPopup.value = professionFromDoc.textContent;
+    if (popup.classList.contains('popup_opened')) {
+        popup.classList.remove('popup_opened');
+
+    }
+
+    else {
+        namePopup.value = nameFromDoc.textContent;
+        professionPopup.value = professionFromDoc.textContent;
+        popup.classList.add('popup_opened');
+    }
+
 }
 
 
 
 function formSubmitHandler (evt) {
-    if (popup.classList.contains('popup_opened'))
-    {
+    
     evt.preventDefault();
     nameFromDoc.textContent = namePopup.value;
     professionFromDoc.textContent = professionPopup.value;
     popupToggle();
     namePopup.value = '';
     professionPopup.value = '';
-    }
+    
 }
 
 
