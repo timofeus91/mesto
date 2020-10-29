@@ -7,7 +7,8 @@ let closePopup = document.querySelector('.popup__close');
 let popup = document.querySelector('.popup');
 let nameFromDoc = document.querySelector('.profile__title');
 let professionFromDoc = document.querySelector('.profile__subtitle');
-let heartLike = document.querySelectorAll('.elements__heart-button');
+
+
 
 
 
@@ -46,10 +47,7 @@ openPopup.addEventListener("click", popupOpenClosed)
 closePopup.addEventListener("click", popupOpenClosed)
 saveChangesPopup.addEventListener('submit', formSubmitHandler)
 
-heartLike.addEventListener("click", function (evt) {
-    evt.target.classList.toggle('elements__heart-button_like');
-    
-});
+
 
 
 
