@@ -18,7 +18,7 @@ let professionFromDoc = document.querySelector('.profile__subtitle');
 
 //стрелочная функция открытия попапа
 
-const popupOpenClosed = () => {
+const popupOpenClosed = (popupElement) => {
     if (popup.classList.contains('popup_opened')) {
         popup.classList.remove('popup_opened');
 
@@ -46,7 +46,9 @@ function formSubmitHandler (evt) {
 }
 
 //обработчики событий
-openPopup.addEventListener("click", popupOpenClosed)
+openPopup.addEventListener("click", function () {
+    popupOpenClosed(openPopup)
+} ) ;
 closePopup.addEventListener("click", popupOpenClosed)
 saveChangesPopup.addEventListener('submit', formSubmitHandler)
 
