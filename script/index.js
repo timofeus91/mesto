@@ -8,7 +8,10 @@ let popup = document.querySelector('.popup');
 let nameFromDoc = document.querySelector('.profile__title');
 let professionFromDoc = document.querySelector('.profile__subtitle');
 
-
+//сначала нужно добавить картинку корзины на изображение через позиционирование и сделать ее button (нужно посмотреть type button. Может есть тип именно для кнопку удаления)
+// сначала нужно перевести шаблон карточек в template в html
+// потом нужно прописать вызов и копирование template элемента и как-то сообразить как подключить готовый массив ( и как его изменять еще потом епрст)
+// и уже потом делать открытие popup для фотографии 
 
 
 

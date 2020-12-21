@@ -1,0 +1,7 @@
+
+.elements__delete-photo {
+    background-image: url('../../../images/Trash.svg');
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 1;
+}
