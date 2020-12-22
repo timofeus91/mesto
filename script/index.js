@@ -1,3 +1,47 @@
+//массив и первых шести карточек по умолчанию
+
+const initialCards = [
+    {
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+]; 
+
+//здесь все что связана с вызовом первых карточек и добавлением-удалением новых-старых.
+//позже нужно распределить по разделам ниже
+
+//переменная в которой обозначен контейнер из html куда добавляются карточки
+const ElementsListContainer = document.querySelector('.elements__list');
+
+
+//функция для того чтобы рендерить список
+
+function renderList() {
+    let newHtml = '';
+}
+
+
+
 //переменные
 let saveChangesPopup = document.querySelector('.popup__form');
 let namePopup = document.querySelector('.popup__text_name');
