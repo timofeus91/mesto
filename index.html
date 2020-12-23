@@ -40,6 +40,30 @@
             <p class='footer__text'>&copy; 2020 Mesto Russia</p>
         </footer>
 
+        <div class='popup' id="popup-user">
+            <div class='popup__container'>
+                <button class="popup__close" type="button"></button>
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <form name="popup-form" class="popup__form" name="user-form" id="user-form">
+                    <input type="text" class="popup__text popup__text_topform" name="popup-name">
+                    <input type="text" class="popup__text popup__text_bottomform" name="popup-profession">
+                    <button class="popup__save" type='submit'>Сохранить</button>
+                </form>
+            </div>
+        </div>
+
+        <div class='popup' id="popup-place">
+            <div class='popup__container'>
+                <button class="popup__close" type="button"></button>
+                <h2 class="popup__title">Новое место</h2>
+                <form name="popup-form" class="popup__form" name="newplace-form" id="newplace-form">
+                    <input type="text" class="popup__text popup__text_topform" name="popup-name-place">
+                    <input type="text" class="popup__text popup__text_bottomform" name="popup-link-photo">
+                    <button class="popup__save" type='submit'>Сохранить</button>
+                </form>
+            </div>
+        </div>
+
         <div class='popup'>
             <div class='popup__container'>
                 <button class="popup__close" type="button"></button>
@@ -51,6 +75,8 @@
                 </form>
             </div>
         </div>
+
+
     </div>
      <template class='template__elements-list'>
         <li class='elements__item'>

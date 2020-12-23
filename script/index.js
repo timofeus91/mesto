@@ -27,18 +27,35 @@ const initialCards = [
     }
 ]; 
 
-//здесь все что связана с вызовом первых карточек и добавлением-удалением новых-старых.
-//позже нужно распределить по разделам ниже
 
+//переменные 
 
-//переменная в которой обозначен контейнер из html (ul в который будут клонироваться li) куда добавляются карточки
+//переменные по 1 попапу - пользователь
+const openUserPopup = document.querySelector('.profile__edit-button');
+const saveChangesUserForm = document.getElementById('user-form');
+const userName = saveChangesUserForm.querySelector('.popup__text_topform');
+const userProfession = saveChangesUserForm.querySelector('.popup__text_bottomform');
+const closeUserPopup = saveChangesUserForm.querySelector('.popup__close');
+const popupUser = document.getElementById('popup-user');
+
+//переменные по 2 попапу - добавление нового места
+const openPlacePopup = document.querySelector('.profile__add-button');
+const saveChangesPlaceForm = document.getElementById('newplace-form');
+const placeName = saveChangesPlaceForm.querySelector('.popup__text_topform');
+const placeLink = saveChangesPlaceForm.querySelector('.popup__text_bottomform');
+const closePlacePopup = saveChangesPlaceForm.querySelector('.popup__close');
+const popupPlace = document.getElementById('popup-place');
+
+//Тут будут переменные по 3 попапу
+
+//переменные по загрузке первых карточек и добавлению новых
 const ElementsListContainer = document.querySelector('.elements__list');
-//переменная куда добавлен template элемент для клонирования и добавления
 const TemplateContainer = document.querySelector('.template__elements-list');
 
 
-//функция для того чтобы рендерить(загружать) список в которой прописано константа которая является методом к которой применяется определенная функция для добавлений вещей из массива 
+//функции
 
+//функция по запуску метода map для создания нового массива и добавлению его в html 
 function renderList() {
     const listItems = initialCards.map(composeItem);
 
@@ -46,61 +63,51 @@ function renderList() {
 }
 
 
-//ниже функция которая применяется для добавления новой карточки с 2 параметрами - названием места и ссылкой на фото
-
+//функция которая применяется для добавления новой карточки с текстом и фото, проставке лайка и удаления карточки
 function composeItem(item) {
-    //ниже константа в которой мы прописываем откуда все данные берет новая карточка( берет из клонированного элемента темплайт. А копирует пока не пройдет весь массив благодаря методу map выше к которому эта функция и будет применена и также будем применять эту функцию для добавления новых карточек через новый попап)
+    
     const newElements = TemplateContainer.content.cloneNode(true);
 
     const TextElement = newElements.querySelector('.elements__text');
     const PhotoLink = newElements.querySelector('.elements__photo');
 
-    newElements.querySelector('.elements__heart-button').addEventListener('click', function (evt) {
-    
+    TextElement.textContent = item.name;
+    PhotoLink.src = item.link;
+
+    const LikeHeart = newElements.querySelector('.elements__heart-button');
+    LikeHeart.addEventListener('click', function (evt) {
         evt.target.classList.toggle('elements__heart-button_like');
     }); 
 
-    TextElement.textContent = item.name;
-    PhotoLink.src = item.link;
+    const removeButtonElement = newElements.querySelector('.elements__delete-photo');
+    removeButtonElement.addEventListener('click', removeElement);
     
-
 
     return newElements;
 
 }
 
-
-
-//переменные
-let saveChangesPopup = document.querySelector('.popup__form');
-let namePopup = document.querySelector('.popup__text_name');
-let professionPopup = document.querySelector('.popup__text_profession');
-let openPopup = document.querySelector('.profile__edit-button');
-let closePopup = document.querySelector('.popup__close');
-let popup = document.querySelector('.popup');
-let nameFromDoc = document.querySelector('.profile__title');
-let professionFromDoc = document.querySelector('.profile__subtitle');
-
-
-//переменная лайка
-//let heartLike = document.querySelector('.elements__heart-button');
-
-
-
+//универсальная функция для удаления. У нас применяется только для удаления карточек в функции composeItem
+function removeElement(evt){
+    const TargetItem = evt.target.closest('.elements__item');
+    TargetItem.remove();
+}
 
 
 //функции открытия и закрытия попапа
 
-function OpenPopup (popupElement) {
-    popupElement.classList.add('.popup-opened');
+function openPopup (popupElement) {
+    popupElement.classList.add('popup_opened');
 }
 
-function ClosePopup (popupElement) {
-    popupElement.classList.remove('.popup-opened');
+function closePopup (popupElement) {
+    popupElement.classList.remove('popup_opened');
 }
+
+
 //ЧТО БЛИН ТЕПЕРЬ С ЭТИМ ДЕЛАТЬ?! Как сделать универсальную для всех попапов? под каждый свой? Изучи слак!
 
-function formSubmitHandler (evt) {
+function userFormSubmit (evt) {
     
     evt.preventDefault();
     nameFromDoc.textContent = namePopup.value;
@@ -111,15 +118,17 @@ function formSubmitHandler (evt) {
     
 }
 
+
 //обработчики событий и обьявленные функции 
 
 renderList();
 
-//heartLike.addEventListener('click', function (evt) {
-//    evt.target.classList.toggle('elements__heart-button_like');
-//    console.log('Кнопка нажалась!');
-// });  
+openUserPopup.addEventListener('click', function() {
+    openPopup(popupUser);
+});
+closeUserPopup.addEventListener('click', function() {
+    closePopup(popupUser);
+});
 
-
-
-
+console.log(closeUserPopup);
+console.log(userName);
