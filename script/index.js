@@ -30,23 +30,37 @@ const initialCards = [
 
 //переменные 
 
+
+
+
 //переменные по 1 попапу - пользователь
+const popupUser = document.querySelector('.popup_user');
 const openUserPopup = document.querySelector('.profile__edit-button');
-const saveChangesUserForm = document.getElementById('user-form');
-const userName = saveChangesUserForm.querySelector('.popup__text_topform');
-const userProfession = saveChangesUserForm.querySelector('.popup__text_bottomform');
-const closeUserPopup = saveChangesUserForm.querySelector('.popup__close');
-const popupUser = document.getElementById('popup-user');
+const saveChangesUserForm = popupUser.querySelector('.popup__form');
+const userName = popupUser.querySelector('.popup__text_topform');
+const userProfession = popupUser.querySelector('.popup__text_bottomform');
+const closeUserPopup = popupUser.querySelector('.popup__close');
+const userPopupSave = popupUser.querySelector('.popup__save');
+let nameFromDoc = document.querySelector('.profile__title');
+let professionFromDoc = document.querySelector('.profile__subtitle');
+
 
 //переменные по 2 попапу - добавление нового места
+const popupPlace = document.querySelector('.popup_place');
 const openPlacePopup = document.querySelector('.profile__add-button');
-const saveChangesPlaceForm = document.getElementById('newplace-form');
-const placeName = saveChangesPlaceForm.querySelector('.popup__text_topform');
-const placeLink = saveChangesPlaceForm.querySelector('.popup__text_bottomform');
-const closePlacePopup = saveChangesPlaceForm.querySelector('.popup__close');
-const popupPlace = document.getElementById('popup-place');
+const saveChangesPlaceForm = popupPlace.querySelector('.popup__form');
+const placeName = popupPlace.querySelector('.popup__text_topform');
+const placeLink = popupPlace.querySelector('.popup__text_bottomform');
+const closePlacePopup = popupPlace.querySelector('.popup__close');
+const placePopupSave = popupPlace.querySelector('.popup__save');
 
-//Тут будут переменные по 3 попапу
+
+
+
+
+//Переменные по 3 попапу
+
+
 
 //переменные по загрузке первых карточек и добавлению новых
 const ElementsListContainer = document.querySelector('.elements__list');
@@ -81,17 +95,30 @@ function composeItem(item) {
 
     const removeButtonElement = newElements.querySelector('.elements__delete-photo');
     removeButtonElement.addEventListener('click', removeElement);
-    
+    function removeElement(evt){
+        const TargetItem = evt.target.closest('.elements__item');
+        TargetItem.remove();
+    }
 
     return newElements;
 
 }
 
-//универсальная функция для удаления. У нас применяется только для удаления карточек в функции composeItem
-function removeElement(evt){
-    const TargetItem = evt.target.closest('.elements__item');
-    TargetItem.remove();
+//функция добавления новой карточки
+
+function addNewItem(evt){
+    evt.preventDefault();
+    const inputTextElement = placeName.value;
+    const inputPhotoLink = placeLink.value;
+    const newElements = composeItem({ name: inputTextElement, link: inputPhotoLink });
+    ElementsListContainer.prepend(newElements);
+    placeName.value = '';
+    placeLink.value = '';
+    closePopup(popupPlace);
+
 }
+
+
 
 
 //функции открытия и закрытия попапа
@@ -105,16 +132,13 @@ function closePopup (popupElement) {
 }
 
 
-//ЧТО БЛИН ТЕПЕРЬ С ЭТИМ ДЕЛАТЬ?! Как сделать универсальную для всех попапов? под каждый свой? Изучи слак!
-
+//функция по изменению имени и профессии
 function userFormSubmit (evt) {
-    
     evt.preventDefault();
-    nameFromDoc.textContent = namePopup.value;
-    professionFromDoc.textContent = professionPopup.value;
-    popupOpenClosed();
-    namePopup.value = '';
-    professionPopup.value = '';
+    nameFromDoc.textContent = userName.value;
+    professionFromDoc.textContent = userProfession.value;
+    
+    closePopup(popupUser);
     
 }
 
@@ -125,10 +149,22 @@ renderList();
 
 openUserPopup.addEventListener('click', function() {
     openPopup(popupUser);
+    userName.value = nameFromDoc.textContent;
+    userProfession.value = professionFromDoc.textContent;
 });
+
 closeUserPopup.addEventListener('click', function() {
     closePopup(popupUser);
 });
 
-console.log(closeUserPopup);
-console.log(userName);
+saveChangesUserForm.addEventListener('submit', userFormSubmit);
+
+openPlacePopup.addEventListener('click', function() {
+    openPopup(popupPlace);
+})
+
+closePlacePopup.addEventListener('click', function() {
+    closePopup(popupPlace);
+})
+
+saveChangesPlaceForm.addEventListener('submit', addNewItem);
