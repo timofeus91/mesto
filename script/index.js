@@ -30,14 +30,43 @@ const initialCards = [
 //здесь все что связана с вызовом первых карточек и добавлением-удалением новых-старых.
 //позже нужно распределить по разделам ниже
 
-//переменная в которой обозначен контейнер из html куда добавляются карточки
+
+//переменная в которой обозначен контейнер из html (ul в который будут клонироваться li) куда добавляются карточки
 const ElementsListContainer = document.querySelector('.elements__list');
+//переменная куда добавлен template элемент для клонирования и добавления
+const TemplateContainer = document.querySelector('.template__elements-list');
 
 
-//функция для того чтобы рендерить список
+//функция для того чтобы рендерить(загружать) список в которой прописано константа которая является методом к которой применяется определенная функция для добавлений вещей из массива 
 
 function renderList() {
-    let newHtml = '';
+    const listItems = initialCards.map(composeItem);
+
+    ElementsListContainer.append(...listItems);
+}
+
+
+//ниже функция которая применяется для добавления новой карточки с 2 параметрами - названием места и ссылкой на фото
+
+function composeItem(item) {
+    //ниже константа в которой мы прописываем откуда все данные берет новая карточка( берет из клонированного элемента темплайт. А копирует пока не пройдет весь массив благодаря методу map выше к которому эта функция и будет применена и также будем применять эту функцию для добавления новых карточек через новый попап)
+    const newElements = TemplateContainer.content.cloneNode(true);
+
+    const TextElement = newElements.querySelector('.elements__text');
+    const PhotoLink = newElements.querySelector('.elements__photo');
+
+    newElements.querySelector('.elements__heart-button').addEventListener('click', function (evt) {
+    
+        evt.target.classList.toggle('elements__heart-button_like');
+    }); 
+
+    TextElement.textContent = item.name;
+    PhotoLink.src = item.link;
+    
+
+
+    return newElements;
+
 }
 
 
@@ -52,31 +81,24 @@ let popup = document.querySelector('.popup');
 let nameFromDoc = document.querySelector('.profile__title');
 let professionFromDoc = document.querySelector('.profile__subtitle');
 
-//сначала нужно добавить картинку корзины на изображение через позиционирование и сделать ее button (нужно посмотреть type button. Может есть тип именно для кнопку удаления)
-// сначала нужно перевести шаблон карточек в template в html
-// потом нужно прописать вызов и копирование template элемента и как-то сообразить как подключить готовый массив ( и как его изменять еще потом епрст)
-// и уже потом делать открытие popup для фотографии 
+
+//переменная лайка
+//let heartLike = document.querySelector('.elements__heart-button');
 
 
 
 
-//стрелочная функция открытия попапа
 
-const popupOpenClosed = (popupElement) => {
-    if (popup.classList.contains('popup_opened')) {
-        popup.classList.remove('popup_opened');
+//функции открытия и закрытия попапа
 
-    }
-
-    else {
-        namePopup.value = nameFromDoc.textContent;
-        professionPopup.value = professionFromDoc.textContent;
-        popup.classList.add('popup_opened');
-    }
-
+function OpenPopup (popupElement) {
+    popupElement.classList.add('.popup-opened');
 }
 
-//функция по записи изменений имени и профессии в <section> class='profile'
+function ClosePopup (popupElement) {
+    popupElement.classList.remove('.popup-opened');
+}
+//ЧТО БЛИН ТЕПЕРЬ С ЭТИМ ДЕЛАТЬ?! Как сделать универсальную для всех попапов? под каждый свой? Изучи слак!
 
 function formSubmitHandler (evt) {
     
@@ -89,14 +111,14 @@ function formSubmitHandler (evt) {
     
 }
 
-//обработчики событий
-openPopup.addEventListener("click", function () {
-    popupOpenClosed(openPopup)
-} ) ;
-closePopup.addEventListener("click", popupOpenClosed)
-saveChangesPopup.addEventListener('submit', formSubmitHandler)
+//обработчики событий и обьявленные функции 
 
+renderList();
 
+//heartLike.addEventListener('click', function (evt) {
+//    evt.target.classList.toggle('elements__heart-button_like');
+//    console.log('Кнопка нажалась!');
+// });  
 
 
 
