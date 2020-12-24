@@ -3,3 +3,13 @@
     top: -35px;
     left: 425px;
 }
+
+
+@media screen and (max-width:540px) {
+    .popup__close_img {
+        top: -35px;
+        left: 285px;
+        
+        
+    }
+}
