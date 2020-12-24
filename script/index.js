@@ -59,6 +59,11 @@ const placePopupSave = popupPlace.querySelector('.popup__save');
 
 
 //Переменные по 3 попапу
+const popupImg = document.querySelector('.popup_img');
+const closeImgPopup = popupImg.querySelector('.popup__close');
+const imgName = popupImg.querySelector('.popup__title');
+const imgLink = popupImg.querySelector('.popup__image');
+
 
 
 
@@ -77,16 +82,16 @@ function renderList() {
 }
 
 
-//функция которая применяется для добавления новой карточки с текстом и фото, проставке лайка и удаления карточки
+//функция которая применяется для добавления новой карточки с текстом и фото, проставке лайка и удаления карточки, открытию большого варианта фото.
 function composeItem(item) {
     
     const newElements = TemplateContainer.content.cloneNode(true);
 
-    const TextElement = newElements.querySelector('.elements__text');
-    const PhotoLink = newElements.querySelector('.elements__photo');
+    const textElement = newElements.querySelector('.elements__text');
+    const photoLink = newElements.querySelector('.elements__photo');
 
-    TextElement.textContent = item.name;
-    PhotoLink.src = item.link;
+    textElement.textContent = item.name;
+    photoLink.src = item.link;
 
     const LikeHeart = newElements.querySelector('.elements__heart-button');
     LikeHeart.addEventListener('click', function (evt) {
@@ -99,18 +104,39 @@ function composeItem(item) {
         const TargetItem = evt.target.closest('.elements__item');
         TargetItem.remove();
     }
+    
+
+    photoLink.addEventListener('click', function() {
+        openHugeImg(textElement, photoLink);
+
+    });
+    
 
     return newElements;
 
 }
 
+//функция для открытия большого варианта фото
+
+
+
+function openHugeImg (namePhoto, linkPhoto) {
+    openPopup(popupImg);
+    imgName.textContent = namePhoto.textContent;
+    imgLink.src = linkPhoto.src;
+
+}
+
+
+
+
 //функция добавления новой карточки
 
 function addNewItem(evt){
     evt.preventDefault();
-    const inputTextElement = placeName.value;
-    const inputPhotoLink = placeLink.value;
-    const newElements = composeItem({ name: inputTextElement, link: inputPhotoLink });
+    const inputtextElement = placeName.value;
+    const inputphotoLink = placeLink.value;
+    const newElements = composeItem({ name: inputtextElement, link: inputphotoLink });
     ElementsListContainer.prepend(newElements);
     placeName.value = '';
     placeLink.value = '';
@@ -161,10 +187,14 @@ saveChangesUserForm.addEventListener('submit', userFormSubmit);
 
 openPlacePopup.addEventListener('click', function() {
     openPopup(popupPlace);
-})
+});
 
 closePlacePopup.addEventListener('click', function() {
     closePopup(popupPlace);
-})
+});
 
 saveChangesPlaceForm.addEventListener('submit', addNewItem);
+
+closeImgPopup.addEventListener('click', function() {
+    closePopup(popupImg);
+});
