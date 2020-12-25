@@ -2,7 +2,8 @@
 @import url('../vendor/normalize.css');
 @import url('../vendor/fonts.css');
 
-@import url('../blocks/page/page.css');
+@import url('../blocks/all-content/all-content.css');
+
 @import url('../blocks/page/__elements/page__elements.css');
 @import url('../blocks/page/__footer/page__footer.css');
 @import url('../blocks/page/__header/page__header.css');
