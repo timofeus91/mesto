@@ -27,11 +27,7 @@ const initialCards = [
     }
 ]; 
 
-
 //переменные 
-
-
-
 
 //переменные по 1 попапу - пользователь
 const popupUser = document.querySelector('.popup_user');
@@ -41,9 +37,8 @@ const userName = popupUser.querySelector('.popup__text_topform');
 const userProfession = popupUser.querySelector('.popup__text_bottomform');
 const closeUserPopup = popupUser.querySelector('.popup__close');
 const userPopupSave = popupUser.querySelector('.popup__save');
-let nameFromDoc = document.querySelector('.profile__title');
-let professionFromDoc = document.querySelector('.profile__subtitle');
-
+const nameFromDoc = document.querySelector('.profile__title');
+const professionFromDoc = document.querySelector('.profile__subtitle');
 
 //переменные по 2 попапу - добавление нового места
 const popupPlace = document.querySelector('.popup_place');
@@ -54,81 +49,58 @@ const placeLink = popupPlace.querySelector('.popup__text_bottomform');
 const closePlacePopup = popupPlace.querySelector('.popup__close');
 const placePopupSave = popupPlace.querySelector('.popup__save');
 
-
-
-
-
 //Переменные по 3 попапу
 const popupImg = document.querySelector('.popup_img');
 const closeImgPopup = popupImg.querySelector('.popup__close');
 const imgName = popupImg.querySelector('.popup__title');
 const imgLink = popupImg.querySelector('.popup__image');
 
-
-
-
 //переменные по загрузке первых карточек и добавлению новых
-const ElementsListContainer = document.querySelector('.elements__list');
-const TemplateContainer = document.querySelector('.template__elements-list');
-
+const elementsListContainer = document.querySelector('.elements__list');
+const templateContainer = document.querySelector('.template__elements-list');
 
 //функции
 
 //функция по запуску метода map для создания нового массива и добавлению его в html 
 function renderList() {
     const listItems = initialCards.map(composeItem);
-
-    ElementsListContainer.append(...listItems);
+    elementsListContainer.append(...listItems);
 }
-
 
 //функция которая применяется для добавления новой карточки с текстом и фото, проставке лайка и удаления карточки, открытию большого варианта фото.
 function composeItem(item) {
-    
-    const newElements = TemplateContainer.content.cloneNode(true);
-
+    const newElements = templateContainer.content.cloneNode(true);
     const textElement = newElements.querySelector('.elements__text');
     const photoLink = newElements.querySelector('.elements__photo');
 
     textElement.textContent = item.name;
     photoLink.src = item.link;
+    photoLink.alt = item.name;
 
-    const LikeHeart = newElements.querySelector('.elements__heart-button');
-    LikeHeart.addEventListener('click', function (evt) {
+    const likeHeart = newElements.querySelector('.elements__heart-button');
+    likeHeart.addEventListener('click', function (evt) {
         evt.target.classList.toggle('elements__heart-button_like');
     }); 
 
     const removeButtonElement = newElements.querySelector('.elements__delete-photo');
     removeButtonElement.addEventListener('click', removeElement);
     function removeElement(evt){
-        const TargetItem = evt.target.closest('.elements__item');
-        TargetItem.remove();
+        const targetItem = evt.target.closest('.elements__item');
+        targetItem.remove();
     }
-    
-
     photoLink.addEventListener('click', function() {
         openHugeImg(textElement, photoLink);
-
     });
-    
-
     return newElements;
-
 }
 
 //функция для открытия большого варианта фото
-
-
-
 function openHugeImg (namePhoto, linkPhoto) {
     openPopup(popupImg);
     imgName.textContent = namePhoto.textContent;
     imgLink.src = linkPhoto.src;
-
+    imgLink.alt = namePhoto.textContent;
 }
-
-
-
 
 //функция добавления новой карточки
 
@@ -137,15 +109,10 @@ function addNewItem(evt){
     const inputtextElement = placeName.value;
     const inputphotoLink = placeLink.value;
     const newElements = composeItem({ name: inputtextElement, link: inputphotoLink });
-    ElementsListContainer.prepend(newElements);
-    placeName.value = '';
-    placeLink.value = '';
+    elementsListContainer.prepend(newElements);
+    saveChangesPlaceForm.reset();
     closePopup(popupPlace);
-
 }
-
-
-
 
 //функции открытия и закрытия попапа
 
@@ -157,17 +124,13 @@ function closePopup (popupElement) {
     popupElement.classList.remove('popup_opened');
 }
 
-
 //функция по изменению имени и профессии
 function userFormSubmit (evt) {
     evt.preventDefault();
     nameFromDoc.textContent = userName.value;
     professionFromDoc.textContent = userProfession.value;
-    
     closePopup(popupUser);
-    
 }
-
 
 //обработчики событий и обьявленные функции 
 

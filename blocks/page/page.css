@@ -8,5 +8,6 @@
     -moz-text-size-adjust: 100%;
      text-rendering: optimizeLegibility;
      background-color: rgb(00, 00, 00);
+     margin: 0;
      
 }
