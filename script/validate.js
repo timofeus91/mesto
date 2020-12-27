@@ -114,8 +114,8 @@ enableValidation();
 
 
 /*enableValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
+    formSelector: '.popup__form',    - общая константа для форм
+    inputSelector: '.popup__input', - общая константа на инпунты 
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_disabled',
     inputErrorClass: 'popup__input_type_error',
@@ -128,4 +128,23 @@ enableValidation();
 
 */
 
+ const firstFormContainer = document.querySelector('.popup_user');
+ const firstForm = firstFormContainer.querySelector('.popup__form');
+ const topInput = firstForm.querySelector('.popup__input_topform');
 
+ firstForm.addEventListener('submit', function(evt){
+   evt.preventDefault();
+   console.log('отменил отправку');
+ } )
+
+ topInput.addEventListener('input', function(evt){
+   console.log(evt.target);
+   console.log(evt.target.validationMessage);
+   console.log(evt.target.validity);
+
+   const input = evt.target;
+   const error = firstForm.querySelector(`#${input.id}-error`); 
+
+   error.textContent = input.validationMessage;
+
+ })

@@ -39,14 +39,18 @@
         <footer class="footer page__footer">
             <p class='footer__text'>&copy; 2020 Mesto Russia</p>
         </footer>
+
         <section class='popups'>
         <div class='popup popup_user'>
             <div class='popup__container'>
                 <button class="popup__close" type="button"></button>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form class="popup__form" name="user-form">
-                    <input type="text" class="popup__input popup__input_topform" name="popup-name" placeholder="Имя" required minlength='2' maxlength='40'>
-                    <input type="text" class="popup__input popup__input_bottomform" name="popup-about" placeholder="О себе" required minlength='2' maxlength='200'>
+                <form class="popup__form" name="user-form" novalidate>
+                    <input type="text" class="popup__input popup__input_topform" name="popup-name" placeholder="Имя" required minlength='2' maxlength='40' id="name-user-input">
+                    <span class="" id="name-user-input-error"></span>
+
+                    <input type="text" class="popup__input popup__input_bottomform" name="popup-about" placeholder="О себе" required minlength='2' maxlength='200' id="about-user-input">
+                    <span class="" id="about-user-input-error"></span>
                     <button class="popup__button" type='submit'>Сохранить</button>
                 </form>
             </div>
@@ -56,9 +60,13 @@
             <div class='popup__container popup__container_place'>
                 <button class="popup__close popup__close_place" type="button"></button>
                 <h2 class="popup__title popup__title_place">Новое место</h2>
-                <form class="popup__form popup__form_place" name="newplace-form">
-                    <input type="text" class="popup__input popup__input_topform" name="popup-name-place" placeholder="Название" required minlength='2' maxlength='30'>
-                    <input type="url" class="popup__input popup__input_bottomform" name="popup-link-photo" placeholder="Ссылка на картинку" required>
+                <form class="popup__form popup__form_place" name="newplace-form" novalidate>
+                    <input type="text" class="popup__input popup__input_topform" name="popup-name-place" placeholder="Название" required minlength='2' maxlength='30' id="name-place-input">
+                    <span class='' id="name-place-input-error"></span>
+
+                    <input type="url" class="popup__input popup__input_bottomform" name="popup-link-photo" placeholder="Ссылка на картинку" required id="link-input">
+                    <span class='' id="link-input-error"></span>
+
                     <button class="popup__button" type='submit'>Сохранить</button>
                 </form>
             </div>
@@ -84,7 +92,7 @@
         </li> 
     </template> 
     <script src='./script/index.js'></script>
-   <!--  <script src="./script/validate.js/"></script> -->
+    <script src="./script/validate.js"></script>
 </body>
 </html>
 
