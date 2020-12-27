@@ -25,7 +25,7 @@ const initialCards = [
         name: 'Байкал',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
-]; 
+];
 
 //переменные 
 
@@ -80,22 +80,22 @@ function composeItem(item) {
     const likeHeart = newElements.querySelector('.elements__heart-button');
     likeHeart.addEventListener('click', function (evt) {
         evt.target.classList.toggle('elements__heart-button_like');
-    }); 
+    });
 
     const removeButtonElement = newElements.querySelector('.elements__delete-photo');
     removeButtonElement.addEventListener('click', removeElement);
-    function removeElement(evt){
+    function removeElement(evt) {
         const targetItem = evt.target.closest('.elements__item');
         targetItem.remove();
     }
-    photoLink.addEventListener('click', function() {
+    photoLink.addEventListener('click', function () {
         openHugeImg(textElement, photoLink);
     });
     return newElements;
 }
 
 //функция для открытия большого варианта фото
-function openHugeImg (namePhoto, linkPhoto) {
+function openHugeImg(namePhoto, linkPhoto) {
     openPopup(popupImg);
     imgName.textContent = namePhoto.textContent;
     imgLink.src = linkPhoto.src;
@@ -104,7 +104,7 @@ function openHugeImg (namePhoto, linkPhoto) {
 
 //функция добавления новой карточки
 
-function addNewItem(evt){
+function addNewItem(evt) {
     evt.preventDefault();
     const inputtextElement = placeName.value;
     const inputphotoLink = placeLink.value;
@@ -116,13 +116,13 @@ function addNewItem(evt){
 
 //функции открытия и закрытия попапа
 
-function openPopup (popupElement) {
+function openPopup(popupElement) {
     popupElement.classList.add('popup_opened');
     document.addEventListener('keydown', escapeClosePopup);
     popupElement.addEventListener('click', mouseClosePopup);
 }
 
-function closePopup (popupElement) {
+function closePopup(popupElement) {
     popupElement.classList.remove('popup_opened');
     document.removeEventListener('keydown', escapeClosePopup);
     popupElement.removeEventListener('click', mouseClosePopup);
@@ -130,7 +130,7 @@ function closePopup (popupElement) {
 
 //функция которая закрывает popup через клавишу ESC
 
-function escapeClosePopup (evt) {
+function escapeClosePopup(evt) {
     const PopupOpenedEscape = document.querySelector('.popup_opened');
     if (evt.key === 'Escape') {
         PopupOpenedEscape.classList.remove('popup_opened');
@@ -141,11 +141,11 @@ function escapeClosePopup (evt) {
 
 function mouseClosePopup(evt) {
     if (evt.target.classList.contains('popup'))
-    closePopup(evt.target)
+        closePopup(evt.target)
 }
 
 //функция по изменению имени и профессии
-function userFormSubmit (evt) {
+function userFormSubmit(evt) {
     evt.preventDefault();
     nameFromDoc.textContent = userName.value;
     aboutUserFromDoc.textContent = userAbout.value;
@@ -156,39 +156,37 @@ function userFormSubmit (evt) {
 
 renderList();
 
-openUserPopup.addEventListener('click', function() {
+openUserPopup.addEventListener('click', function () {
     openPopup(popupUser);
     userName.value = nameFromDoc.textContent;
     userAbout.value = aboutUserFromDoc.textContent;
 });
 
-closeUserPopup.addEventListener('click', function() {
+closeUserPopup.addEventListener('click', function () {
     closePopup(popupUser);
 });
 
 saveChangesUserForm.addEventListener('submit', userFormSubmit);
 
-openPlacePopup.addEventListener('click', function() {
+openPlacePopup.addEventListener('click', function () {
     openPopup(popupPlace);
 });
 
-closePlacePopup.addEventListener('click', function() {
+closePlacePopup.addEventListener('click', function () {
     closePopup(popupPlace);
 });
 
 saveChangesPlaceForm.addEventListener('submit', addNewItem);
 
-closeImgPopup.addEventListener('click', function() {
+closeImgPopup.addEventListener('click', function () {
     closePopup(popupImg);
 });
 
-
-
-/*enableValidation({
+enableValidation({
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button',
     inactiveButtonClass: 'popup__button_disabled',
     inputErrorClass: 'popup__input_error',
     errorClass: 'popup__error_visible'
-  }); */
+  }); 

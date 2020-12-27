@@ -128,23 +128,70 @@ enableValidation();
 
 */
 
- const firstFormContainer = document.querySelector('.popup_user');
- const firstForm = firstFormContainer.querySelector('.popup__form');
- const topInput = firstForm.querySelector('.popup__input_topform');
 
- firstForm.addEventListener('submit', function(evt){
+
+
+
+
+// функция ...
+/*formSelector.addEventListener('submit', function(evt){
    evt.preventDefault();
-   console.log('отменил отправку');
- } )
+   
+ } ) */
 
- topInput.addEventListener('input', function(evt){
-   console.log(evt.target);
-   console.log(evt.target.validationMessage);
-   console.log(evt.target.validity);
+// функция которая показывает ошибку
+function showError(form, input) {
+  const error = form.querySelector(`#${input.id}-error`);
+  error.textContent = input.validationMessage;
+  input.classlist.add('popup__input_error');
+}
 
-   const input = evt.target;
-   const error = firstForm.querySelector(`#${input.id}-error`); 
+// функция которая скрывает ошибку
 
-   error.textContent = input.validationMessage;
+function hideError(form, input) {
+  const error = form.querySelector(`#${input.id}-error`);
+  error.textContent = '';
+  input.classlist.remove('popup__input_error');
+}
 
- })
+//функция которая проверяет конкретный input на валидность
+
+function checkInputValidity(form, input) {
+  if (input.validity.valid) {
+    hideError(form, input);
+  } else {
+    showError(form, input);
+  }
+}
+
+// функция по проверке кнопки отправки формы и включению-выключению ее активности
+function setButtonState(button, isActive) {
+  if (isActive) {
+    button.classlist.remove('popup__button_disabled')
+    button.disabled = false;
+  } else {
+    button.classlist.add('popup__button_disabled')
+    button.disabled = true;
+  }
+}
+
+//функция по поиску всех input-s и button-s , переборке формы.
+function setEventListener(form){
+  const inputList = document.querySelectorAll(inputSelector);
+  const submitButton = document.querySelector(submitButtonSelector);
+
+  inputList.forEach(input => {
+  input.addEventListener('input', (evt) => {
+    checkInputValidity(form, input)
+    setButtonState(submitButton, form.checkInputValidity())
+  })
+})
+}
+
+// 
+function enableValidation(){
+  const forms = document.querySelectorAll(formSelector);
+  forms forEach(form => {
+    setEventListener(form)
+  })
+}
