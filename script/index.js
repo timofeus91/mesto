@@ -1,116 +1,3 @@
-/* Коды подсказка из теории - слака
-
-Валидация форм - отображение новых ошибок при заполнении форм через js. И это только под одну форму!!! Кошмарненько
-
-const formElement = document.querySelector('.form');
-const formInput = formElement.querySelector('.form__input');
-const formError = formElement.querySelector(`.${formInput.id}-error`);
-
-const showError = (input, errorMessage) => {
-  input.classList.add('form__input_type_error');
-  formError.textContent = errorMessage;
-  formError.classList.add('form__input-error_active');
-};
-
-const hideError = (input) => {
-  input.classList.remove('form__input_type_error');
-  formError.classList.remove('form__input-error_active');
-  formError.textContent= '';
-};
-
-const checkInputValidity = () => {
-  if (!formInput.validity.valid) {
-    showError(formInput, formInput.validationMessage);
-  } else {
-    hideError(formInput);
-  }
-};
-
-formElement.addEventListener('submit', function (evt) {
-  evt.preventDefault();
-});
-
-formInput.addEventListener('input', function () {
-  checkInputValidity();
-});
-
-
-
-
-Для множества форм. Плюс кнопка. Что-то на инопланетном .
-
-
-function hasInvalidInput(inputList){
-  return inputList.some((inputElement) => {
-  return !inputElement.validity.valid;
-}); 
-}
-function toggleButtonState(inputList, buttonElement){
-  if (hasInvalidInput(inputList)) {
-  buttonElement.classList.add('button_inactive');
-} else {
-  buttonElement.classList.remove('button_inactive');
-} 
-}
-
-const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('form__input_type_error');
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add('form__input-error_active');
-};
-
-const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('form__input_type_error');
-  errorElement.classList.remove('form__input-error_active');
-  errorElement.textContent = '';
-};
-
-const checkInputValidity = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-};
-
-const setEventListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
-  const buttonElement = formElement.querySelector('.form__submit');
-  
-  toggleButtonState(inputList, buttonElement);
-  
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', function () {
-      checkInputValidity(formElement, inputElement);
-       toggleButtonState(inputList, buttonElement);
-    });
-  });
-};
-
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.form'));
-  formList.forEach((formElement) => {
-    formElement.addEventListener('submit', function (evt) {
-      evt.preventDefault();
-    });
-const fieldsetList = Array.from(formElement.querySelectorAll('.form__set'));
-
-fieldsetList.forEach((fieldSet) => {
-  setEventListeners(fieldSet);
-}); 
-  });
-};
-
-enableValidation();
-
-
-
-
-*/
-
-
 //массив и первых шести карточек по умолчанию
 
 const initialCards = [
@@ -146,21 +33,21 @@ const initialCards = [
 const popupUser = document.querySelector('.popup_user');
 const openUserPopup = document.querySelector('.profile__edit-button');
 const saveChangesUserForm = popupUser.querySelector('.popup__form');
-const userName = popupUser.querySelector('.popup__text_topform');
-const userProfession = popupUser.querySelector('.popup__text_bottomform');
+const userName = popupUser.querySelector('.popup__input_topform');
+const userAbout = popupUser.querySelector('.popup__input_bottomform');
 const closeUserPopup = popupUser.querySelector('.popup__close');
-const userPopupSave = popupUser.querySelector('.popup__save');
+const userPopupSave = popupUser.querySelector('.popup__button');
 const nameFromDoc = document.querySelector('.profile__title');
-const professionFromDoc = document.querySelector('.profile__subtitle');
+const aboutUserFromDoc = document.querySelector('.profile__subtitle');
 
 //переменные по 2 попапу - добавление нового места
 const popupPlace = document.querySelector('.popup_place');
 const openPlacePopup = document.querySelector('.profile__add-button');
 const saveChangesPlaceForm = popupPlace.querySelector('.popup__form');
-const placeName = popupPlace.querySelector('.popup__text_topform');
-const placeLink = popupPlace.querySelector('.popup__text_bottomform');
+const placeName = popupPlace.querySelector('.popup__input_topform');
+const placeLink = popupPlace.querySelector('.popup__input_bottomform');
 const closePlacePopup = popupPlace.querySelector('.popup__close');
-const placePopupSave = popupPlace.querySelector('.popup__save');
+const placePopupSave = popupPlace.querySelector('.popup__button');
 
 //Переменные по 3 попапу
 const popupImg = document.querySelector('.popup_img');
@@ -231,33 +118,37 @@ function addNewItem(evt){
 
 function openPopup (popupElement) {
     popupElement.classList.add('popup_opened');
-    document.addEventListener('keydown', escapePopup);
+    document.addEventListener('keydown', escapeClosePopup);
+    popupElement.addEventListener('click', mouseClosePopup);
 }
 
 function closePopup (popupElement) {
     popupElement.classList.remove('popup_opened');
-    document.removeEventListener('keydown', escapePopup);
+    document.removeEventListener('keydown', escapeClosePopup);
+    popupElement.removeEventListener('click', mouseClosePopup);
 }
 
 //функция которая закрывает popup через клавишу ESC
 
-function escapePopup (evt) {
+function escapeClosePopup (evt) {
     const PopupOpenedEscape = document.querySelector('.popup_opened');
     if (evt.key === 'Escape') {
         PopupOpenedEscape.classList.remove('popup_opened');
-        
     }
 }
 
-//функция по закрытию попапа через нажатие кнопки мыши мимо
-/*
-function escapeMousePopup(evt) {}
-*/
+//функция по закрытию попапа через нажатие кнопки мыши мимо попапа
+
+function mouseClosePopup(evt) {
+    if (evt.target.classList.contains('popup'))
+    closePopup(evt.target)
+}
+
 //функция по изменению имени и профессии
 function userFormSubmit (evt) {
     evt.preventDefault();
     nameFromDoc.textContent = userName.value;
-    professionFromDoc.textContent = userProfession.value;
+    aboutUserFromDoc.textContent = userAbout.value;
     closePopup(popupUser);
 }
 
@@ -268,7 +159,7 @@ renderList();
 openUserPopup.addEventListener('click', function() {
     openPopup(popupUser);
     userName.value = nameFromDoc.textContent;
-    userProfession.value = professionFromDoc.textContent;
+    userAbout.value = aboutUserFromDoc.textContent;
 });
 
 closeUserPopup.addEventListener('click', function() {
