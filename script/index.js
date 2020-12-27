@@ -190,3 +190,6 @@ enableValidation({
     inputErrorClass: 'popup__input_error',
     errorClass: 'popup__error_visible'
   }); 
+
+  
+  
