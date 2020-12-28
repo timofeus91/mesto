@@ -4,7 +4,6 @@ function showError(form, input, config) {
   const error = form.querySelector(`#${input.id}-error`);
   error.textContent = input.validationMessage;
   input.classlist.add(config.inputErrorClass);
-  
 }
 
 // функция которая скрывает ошибку
@@ -19,10 +18,11 @@ function hideError(form, input, config) {
 //функция которая проверяет конкретный input на валидность
 
 function checkInputValidity(form, input, config) {
-  if (input.validity.valid) {
-    hideError(form, input, config);
-  } else {
+  if (!input.validity.valid) {
     showError(form, input, config);
+    
+  } else {
+    hideError(form, input, config);
   }
 }
 
