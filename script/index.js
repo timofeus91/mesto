@@ -36,7 +36,6 @@ const saveChangesUserForm = popupUser.querySelector('.popup__form');
 const userName = popupUser.querySelector('.popup__input_topform');
 const userAbout = popupUser.querySelector('.popup__input_bottomform');
 const closeUserPopup = popupUser.querySelector('.popup__close');
-const userPopupSave = popupUser.querySelector('.popup__button');
 const nameFromDoc = document.querySelector('.profile__title');
 const aboutUserFromDoc = document.querySelector('.profile__subtitle');
 
@@ -47,7 +46,6 @@ const saveChangesPlaceForm = popupPlace.querySelector('.popup__form');
 const placeName = popupPlace.querySelector('.popup__input_topform');
 const placeLink = popupPlace.querySelector('.popup__input_bottomform');
 const closePlacePopup = popupPlace.querySelector('.popup__close');
-const placePopupSave = popupPlace.querySelector('.popup__button');
 
 //Переменные по 3 попапу
 const popupImg = document.querySelector('.popup_img');
@@ -135,7 +133,7 @@ function closePopup(popupElement) {
 function escapeClosePopup(evt) {
     const PopupOpenedEscape = document.querySelector('.popup_opened');
     if (evt.key === 'Escape') {
-        PopupOpenedEscape.classList.remove('popup_opened');
+        closePopup(PopupOpenedEscape);
     }
 }
 
