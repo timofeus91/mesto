@@ -12,6 +12,8 @@
     height: 50px;
     background-color: rgb(00, 00, 00);
     cursor: pointer;
+    border-radius: 2px;
+    border: 1px solid rgb(00, 00, 00);
 }
 
 
