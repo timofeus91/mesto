@@ -3,7 +3,7 @@
 function showError(form, input, config) {
   const error = form.querySelector(`#${input.id}-error`);
   error.textContent = input.validationMessage;
-  input.classlist.add(config.inputErrorClass);
+  input.classList.add(config.inputErrorClass);
 }
 
 // функция которая скрывает ошибку
@@ -11,7 +11,7 @@ function showError(form, input, config) {
 function hideError(form, input, config) {
   const error = form.querySelector(`#${input.id}-error`);
   error.textContent = '';
-  input.classlist.remove(config.inputErrorClass);
+  input.classList.remove(config.inputErrorClass);
   
 }
 
@@ -29,10 +29,10 @@ function checkInputValidity(form, input, config) {
 // функция по проверке кнопки отправки формы и включению-выключению ее активности
 function setButtonState(button, isActive, config) {
   if (isActive) {
-    button.classlist.remove(config.inactiveButtonClass)
+    button.classList.remove(config.inactiveButtonClass)
     button.disabled = false;
   } else {
-    button.classlist.add(config.inactiveButtonClass)
+    button.classList.add(config.inactiveButtonClass)
     button.disabled = true;
   }
 }
@@ -41,9 +41,10 @@ function setButtonState(button, isActive, config) {
 function setEventListener(form, config){
   const inputList = form.querySelectorAll(config.inputSelector);
   const submitButton = form.querySelector(config.submitButtonSelector);
+  
 
   inputList.forEach(input => {
-  input.addEventListener('input', (evt) => {
+    input.addEventListener('input', (evt) => {
     checkInputValidity(form, input, config)
     setButtonState(submitButton, form.checkValidity(), config)
   })
@@ -54,13 +55,12 @@ function setEventListener(form, config){
 function enableValidation(config){
   const forms = document.querySelectorAll(config.formSelector);
   forms.forEach(form => {
-    setEventListener(form, config)
+    setEventListener(form, config);
 
     form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-    })
-
+    });
     const submitButton = form.querySelector(config.submitButtonSelector);
     setButtonState(submitButton, form.checkValidity(), config)
-  })
+  });
 }
