@@ -102,6 +102,8 @@ function openHugeImg(namePhoto, linkPhoto) {
     imgLink.alt = namePhoto.textContent;
 }
 
+
+
 //функция добавления новой карточки
 
 function addNewItem(evt) {
@@ -182,9 +184,6 @@ closeImgPopup.addEventListener('click', function () {
     closePopup(popupImg);
 });
 
-
-
-
 //объект со списком ключей-значений для запуска функций связанных с валидацией
 const validationConfig = {
     formSelector: '.popup__form',
@@ -193,7 +192,6 @@ const validationConfig = {
     inactiveButtonClass: 'popup__button_disabled',
     inputErrorClass: 'popup__input_error'
   }
-
 
 //запуск функции валидации форм 
 enableValidation(validationConfig); 
