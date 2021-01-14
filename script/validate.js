@@ -42,7 +42,6 @@ function setEventListener(form, config){
   const inputList = form.querySelectorAll(config.inputSelector);
   const submitButton = form.querySelector(config.submitButtonSelector);
   
-
   inputList.forEach(input => {
     input.addEventListener('input', (evt) => {
     checkInputValidity(form, input, config)
