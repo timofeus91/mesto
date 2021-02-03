@@ -1,5 +1,5 @@
-
 // функция которая показывает ошибку
+
 function showError(form, input, config) {
   const error = form.querySelector(`#${input.id}-error`);
   error.textContent = input.validationMessage;
@@ -12,7 +12,6 @@ function hideError(form, input, config) {
   const error = form.querySelector(`#${input.id}-error`);
   error.textContent = '';
   input.classList.remove(config.inputErrorClass);
-  
 }
 
 //функция которая проверяет конкретный input на валидность
@@ -27,6 +26,7 @@ function checkInputValidity(form, input, config) {
 }
 
 // функция по проверке кнопки отправки формы и включению-выключению ее активности
+
 function setButtonState(button, isActive, config) {
   if (isActive) {
     button.classList.remove(config.inactiveButtonClass)
@@ -38,6 +38,7 @@ function setButtonState(button, isActive, config) {
 }
 
 //функция по поиску всех input-s и button-s , переборке формы.
+
 function setEventListener(form, config){
   const inputList = form.querySelectorAll(config.inputSelector);
   const submitButton = form.querySelector(config.submitButtonSelector);
@@ -51,6 +52,7 @@ function setEventListener(form, config){
 }
 
 // функция по поиску всех форм. Запрет на действия по умолчанию
+
 function enableValidation(config){
   const forms = document.querySelectorAll(config.formSelector);
   forms.forEach(form => {

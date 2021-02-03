@@ -1,4 +1,4 @@
-//массив и первых шести карточек по умолчанию
+//массив из первых шести карточек по умолчанию
 
 const initialCards = [
     {
@@ -30,6 +30,7 @@ const initialCards = [
 //переменные 
 
 //переменные по 1 попапу - пользователь
+
 const popupUser = document.querySelector('.popup_user');
 const openUserPopup = document.querySelector('.profile__edit-button');
 const saveChangesUserForm = popupUser.querySelector('.popup__form');
@@ -40,6 +41,7 @@ const nameFromDoc = document.querySelector('.profile__title');
 const aboutUserFromDoc = document.querySelector('.profile__subtitle');
 
 //переменные по 2 попапу - добавление нового места
+
 const popupPlace = document.querySelector('.popup_place');
 const openPlacePopup = document.querySelector('.profile__add-button');
 const saveChangesPlaceForm = popupPlace.querySelector('.popup__form');
@@ -48,24 +50,28 @@ const placeLink = popupPlace.querySelector('.popup__input_bottomform');
 const closePlacePopup = popupPlace.querySelector('.popup__close');
 
 //Переменные по 3 попапу
+
 const popupImg = document.querySelector('.popup_img');
 const closeImgPopup = popupImg.querySelector('.popup__close');
 const imgName = popupImg.querySelector('.popup__title');
 const imgLink = popupImg.querySelector('.popup__image');
 
 //переменные по загрузке первых карточек и добавлению новых
+
 const elementsListContainer = document.querySelector('.elements__list');
 const templateContainer = document.querySelector('.template__elements-list');
 
 //функции
 
 //функция по запуску метода map для создания нового массива и добавлению его в html 
+
 function renderList() {
     const listItems = initialCards.map(composeItem);
     elementsListContainer.append(...listItems);
 }
 
 //функция которая применяется для добавления новой карточки с текстом и фото, проставке лайка и удаления карточки, открытию большого варианта фото.
+
 function composeItem(item) {
     const newElements = templateContainer.content.cloneNode(true);
     const textElement = newElements.querySelector('.elements__text');
@@ -93,14 +99,13 @@ function composeItem(item) {
 }
 
 //функция для открытия большого варианта фото
+
 function openHugeImg(namePhoto, linkPhoto) {
     openPopup(popupImg);
     imgName.textContent = namePhoto.textContent;
     imgLink.src = linkPhoto.src;
     imgLink.alt = namePhoto.textContent;
 }
-
-
 
 //функция добавления новой карточки
 
@@ -145,6 +150,7 @@ function mouseClosePopup(evt) {
 }
 
 //функция по изменению имени и профессии
+
 function userFormSubmit(evt) {
     evt.preventDefault();
     nameFromDoc.textContent = userName.value;
@@ -183,6 +189,7 @@ closeImgPopup.addEventListener('click', function () {
 });
 
 //объект со списком ключей-значений для запуска функций связанных с валидацией
+
 const validationConfig = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
@@ -192,4 +199,5 @@ const validationConfig = {
   }
 
 //запуск функции валидации форм 
+
 enableValidation(validationConfig); 
