@@ -57,9 +57,13 @@ const imgName = popupImg.querySelector('.popup__title');
 const imgLink = popupImg.querySelector('.popup__image');
 
 //переменные по загрузке первых карточек и добавлению новых
+/* 
+//Этот код потом на удаление!!! Пока оставить на всякий. 
 
 const elementsListContainer = document.querySelector('.elements__list');
 const templateContainer = document.querySelector('.template__elements-list');
+*/
+
 
 //функции
 
