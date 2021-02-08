@@ -1,6 +1,6 @@
 //импорт необходимой функции из главного файла js
 
-import { openHugeImg } from './index';
+import { openHugeImg } from './index.js';
 
 //класс который создаёт карточку с текстом и ссылкой на изображение.
  export class Card {
@@ -42,8 +42,8 @@ import { openHugeImg } from './index';
             evt.target.classList.toggle('elements__heart-button_like');
         }) 
 
-        const photoLink = this._element.querySelector('.elements__photo');
         const textElement = this._element.querySelector('.elements__text');
+        const photoLink = this._element.querySelector('.elements__photo');
 
         photoLink.addEventListener('click', () => {
             openHugeImg(textElement, photoLink);

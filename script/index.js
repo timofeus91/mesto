@@ -73,11 +73,11 @@ const templateContainer = document.querySelector('.template__elements-list');
 
 function renderList() {
     const listItems = initialCards.forEach(item => {
-        const newCard = new Card(item, templateContainer);
-        newCard.cardCreation();
+        const newCard = new Card(item, '.template__elements-list');
+        const lastCard = newCard.cardCreation();
     });
 
-    elementsListContainer.append(...listItems);
+    elementsListContainer.append(listItems);
 }
 
 //функция которая применяется для добавления новой карточки с текстом и фото, проставке лайка и удаления карточки, открытию большого варианта фото.
@@ -111,7 +111,7 @@ function composeItem(item) {
 
 //функция для открытия большого варианта фото
 
- export function openHugeImg(namePhoto, linkPhoto) {
+export function openHugeImg(namePhoto, linkPhoto) {
     openPopup(popupImg);
     imgName.textContent = namePhoto.textContent;
     imgLink.src = linkPhoto.src;
@@ -211,4 +211,5 @@ const validationConfig = {
 
 //запуск функции валидации форм 
 
-enableValidation(validationConfig); 
+//enableValidation(validationConfig); 
+
