@@ -2,6 +2,8 @@
 
 import { Card } from './Card.js';
 
+import { FormValidator } from './FormValidator.js';
+
 //массив из первых шести карточек по умолчанию
 
 const initialCards = [
