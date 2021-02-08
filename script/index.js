@@ -1,3 +1,7 @@
+//Необходимые импорты из других файлов js
+
+import { Card } from './Card.js';
+
 //массив из первых шести карточек по умолчанию
 
 const initialCards = [
@@ -57,25 +61,28 @@ const imgName = popupImg.querySelector('.popup__title');
 const imgLink = popupImg.querySelector('.popup__image');
 
 //переменные по загрузке первых карточек и добавлению новых
-/* 
-//Этот код потом на удаление!!! Пока оставить на всякий. 
 
 const elementsListContainer = document.querySelector('.elements__list');
 const templateContainer = document.querySelector('.template__elements-list');
-*/
+
 
 
 //функции
 
-//функция по запуску метода map для создания нового массива и добавлению его в html 
+//функция по запуску метода forEach для создания новых карточек из класса Card с использованием массива initialCards и добавлению его в html 
 
 function renderList() {
-    const listItems = initialCards.map(composeItem);
+    const listItems = initialCards.forEach(item => {
+        const newCard = new Card(item, templateContainer);
+        newCard.cardCreation();
+    });
+
     elementsListContainer.append(...listItems);
 }
 
 //функция которая применяется для добавления новой карточки с текстом и фото, проставке лайка и удаления карточки, открытию большого варианта фото.
 
+/* Эта функция заменена классом Card. Не удаляется пока не проверена работа с тем классом
 function composeItem(item) {
     const newElements = templateContainer.content.cloneNode(true);
     const textElement = newElements.querySelector('.elements__text');
@@ -100,11 +107,11 @@ function composeItem(item) {
         openHugeImg(textElement, photoLink);
     });
     return newElements;
-}
+} */
 
 //функция для открытия большого варианта фото
 
-function openHugeImg(namePhoto, linkPhoto) {
+ export function openHugeImg(namePhoto, linkPhoto) {
     openPopup(popupImg);
     imgName.textContent = namePhoto.textContent;
     imgLink.src = linkPhoto.src;

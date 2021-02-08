@@ -1,10 +1,9 @@
-//переменные по загрузке первых карточек и добавлению новых
+//импорт необходимой функции из главного файла js
 
-const elementsListContainer = document.querySelector('.elements__list');
-const templateContainer = document.querySelector('.template__elements-list');
+import { openHugeImg } from './index';
 
 //класс который создаёт карточку с текстом и ссылкой на изображение.
-class Card {
+ export class Card {
 
     //конструктор с данными карточки и селектором её template-элемента
     constructor(data, cardSelector) {
@@ -13,8 +12,49 @@ class Card {
         this._cardSelector = cardSelector;
     }
 
-    //метод по клонированию template элементов
+    //приватный метод по клонированию template элементов
     _cardTemplate() {
+        const cardElement = document.querySelector(this._cardSelector).content.cloneNode(true);
 
+        return cardElement
+    }
+
+    //публичный метод по возвращению карточки
+    cardCreation() {
+        this._element = this._cardTemplate();
+        const textElement = this._element.querySelector('.elements__text');
+        const photoLink = this._element.querySelector('.elements__photo');
+
+        textElement.textContent = this._name;
+        photoLink.src = this._link;
+        photoLink.alt = this._name;
+
+        this._setEventListener()
+
+        return this._element;
+    } 
+
+    //приватный метод по добавлению слушателей событий
+    _setEventListener() {
+        const likeHeart = this._element.querySelector('.elements__heart-button'); 
+
+        likeHeart.addEventListener('click', (evt) => {
+            evt.target.classList.toggle('elements__heart-button_like');
+        }) 
+
+        const photoLink = this._element.querySelector('.elements__photo');
+        const textElement = this._element.querySelector('.elements__text');
+
+        photoLink.addEventListener('click', () => {
+            openHugeImg(textElement, photoLink);
+        })
+
+        const removeButtonElement = this._element.querySelector('.elements__delete-photo');
+
+        removeButtonElement.addEventListener('click', removeElement);
+        function removeElement(evt) {
+        const targetItem = evt.target.closest('.elements__item');
+        targetItem.remove();
+        }
     }
 }
