@@ -60,56 +60,30 @@ const closeImgPopup = popupImg.querySelector('.popup__close');
 const imgName = popupImg.querySelector('.popup__title');
 const imgLink = popupImg.querySelector('.popup__image');
 
-//переменные по загрузке первых карточек и добавлению новых
+//переменная по загрузке первых карточек и добавлению новых
 
 const elementsListContainer = document.querySelector('.elements__list');
-const templateContainer = document.querySelector('.template__elements-list');
-
 
 
 //функции
 
-//функция по запуску метода forEach для создания новых карточек из класса Card с использованием массива initialCards и добавлению его в html 
+//базовая функция по созданию карточки с использованием класса Card. Используется для добавления первых 6 карточек и добавления карточек пользователем. 
 
-function renderList() {
-    const listItems = initialCards.forEach(item => {
-        const newCard = new Card(item, '.template__elements-list');
-        const lastCard = newCard.cardCreation();
-    });
-
-    elementsListContainer.append(listItems);
+function createNewCard(item) {
+    const newCard = new Card(item, '.template__elements-list');
+    return newCard.cardCreation();
 }
 
-//функция которая применяется для добавления новой карточки с текстом и фото, проставке лайка и удаления карточки, открытию большого варианта фото.
+//функция по запуску метода forEach для добавления в html первых 6 карточек из массива initialCards
 
-/* Эта функция заменена классом Card. Не удаляется пока не проверена работа с тем классом
-function composeItem(item) {
-    const newElements = templateContainer.content.cloneNode(true);
-    const textElement = newElements.querySelector('.elements__text');
-    const photoLink = newElements.querySelector('.elements__photo');
-
-    textElement.textContent = item.name;
-    photoLink.src = item.link;
-    photoLink.alt = item.name;
-
-    const likeHeart = newElements.querySelector('.elements__heart-button');
-    likeHeart.addEventListener('click', function (evt) {
-        evt.target.classList.toggle('elements__heart-button_like');
+function renderList() {
+    initialCards.forEach(item => {
+    const listItems = createNewCard(item);
+    elementsListContainer.append(listItems);
     });
+}
 
-    const removeButtonElement = newElements.querySelector('.elements__delete-photo');
-    removeButtonElement.addEventListener('click', removeElement);
-    function removeElement(evt) {
-        const targetItem = evt.target.closest('.elements__item');
-        targetItem.remove();
-    }
-    photoLink.addEventListener('click', function () {
-        openHugeImg(textElement, photoLink);
-    });
-    return newElements;
-} */
-
-//функция для открытия большого варианта фото
+//функция для открытия большого варианта фото. Экспортируется в Card.js для использования в классе
 
 export function openHugeImg(namePhoto, linkPhoto) {
     openPopup(popupImg);
@@ -118,13 +92,13 @@ export function openHugeImg(namePhoto, linkPhoto) {
     imgLink.alt = namePhoto.textContent;
 }
 
-//функция добавления новой карточки
+//функция добавления новой карточки пользователем
 
 function addNewItem(evt) {
     evt.preventDefault();
     const inputtextElement = placeName.value;
     const inputphotoLink = placeLink.value;
-    const newElements = composeItem({ name: inputtextElement, link: inputphotoLink });
+    const newElements = createNewCard({ name: inputtextElement, link: inputphotoLink });
     elementsListContainer.prepend(newElements);
     saveChangesPlaceForm.reset();
     closePopup(popupPlace);

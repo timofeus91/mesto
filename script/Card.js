@@ -2,10 +2,12 @@
 
 import { openHugeImg } from './index.js';
 
-//класс который создаёт карточку с текстом и ссылкой на изображение.
+//класс который создаёт карточку с текстом и ссылкой на изображение. Экспортируется в главный файл js
+
  export class Card {
 
     //конструктор с данными карточки и селектором её template-элемента
+
     constructor(data, cardSelector) {
         this._name = data.name;
         this._link = data.link;
@@ -13,13 +15,15 @@ import { openHugeImg } from './index.js';
     }
 
     //приватный метод по клонированию template элементов
+
     _cardTemplate() {
         const cardElement = document.querySelector(this._cardSelector).content.cloneNode(true);
 
         return cardElement
     }
 
-    //публичный метод по возвращению карточки
+    //публичный метод по возвращению карточки. Используется в основном файле на функциях
+
     cardCreation() {
         this._element = this._cardTemplate();
         const textElement = this._element.querySelector('.elements__text');
@@ -35,6 +39,7 @@ import { openHugeImg } from './index.js';
     } 
 
     //приватный метод по добавлению слушателей событий
+    
     _setEventListener() {
         const likeHeart = this._element.querySelector('.elements__heart-button'); 
 
