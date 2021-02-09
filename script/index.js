@@ -33,13 +33,24 @@ const initialCards = [
     }
 ];
 
+//объект со списком ключей-значений для запуска функций связанных с валидацией
+
+const validationConfig = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_error'
+  }
+
+
 //переменные 
 
 //переменные по 1 попапу - пользователь
 
 const popupUser = document.querySelector('.popup_user');
 const openUserPopup = document.querySelector('.profile__edit-button');
-const saveChangesUserForm = popupUser.querySelector('.popup__form');
+const userForm = popupUser.querySelector('.popup__form');
 const userName = popupUser.querySelector('.popup__input_topform');
 const userAbout = popupUser.querySelector('.popup__input_bottomform');
 const closeUserPopup = popupUser.querySelector('.popup__close');
@@ -50,7 +61,7 @@ const aboutUserFromDoc = document.querySelector('.profile__subtitle');
 
 const popupPlace = document.querySelector('.popup_place');
 const openPlacePopup = document.querySelector('.profile__add-button');
-const saveChangesPlaceForm = popupPlace.querySelector('.popup__form');
+const placeForm = popupPlace.querySelector('.popup__form');
 const placeName = popupPlace.querySelector('.popup__input_topform');
 const placeLink = popupPlace.querySelector('.popup__input_bottomform');
 const closePlacePopup = popupPlace.querySelector('.popup__close');
@@ -66,8 +77,23 @@ const imgLink = popupImg.querySelector('.popup__image');
 
 const elementsListContainer = document.querySelector('.elements__list');
 
+// переменные с новыми классами 
+
+const userFormValidation = new FormValidator(validationConfig, userForm);
+const placeFormValidation = new FormValidator(validationConfig, placeForm);
+
 
 //функции
+
+//функция по запуску валидации на форму
+
+function startValidation(item) {
+    item.enableValidation();
+}
+
+//обьявление функций для валидации
+startValidation(userFormValidation);
+startValidation(placeFormValidation);
 
 //базовая функция по созданию карточки с использованием класса Card. Используется для добавления первых 6 карточек и добавления карточек пользователем. 
 
@@ -102,7 +128,7 @@ function addNewItem(evt) {
     const inputphotoLink = placeLink.value;
     const newElements = createNewCard({ name: inputtextElement, link: inputphotoLink });
     elementsListContainer.prepend(newElements);
-    saveChangesPlaceForm.reset();
+    placeForm.reset();
     closePopup(popupPlace);
 }
 
@@ -159,7 +185,7 @@ closeUserPopup.addEventListener('click', function () {
     closePopup(popupUser);
 });
 
-saveChangesUserForm.addEventListener('submit', userFormSubmit);
+userForm.addEventListener('submit', userFormSubmit);
 
 openPlacePopup.addEventListener('click', function () {
     openPopup(popupPlace);
@@ -169,21 +195,12 @@ closePlacePopup.addEventListener('click', function () {
     closePopup(popupPlace);
 });
 
-saveChangesPlaceForm.addEventListener('submit', addNewItem);
+placeForm.addEventListener('submit', addNewItem);
 
 closeImgPopup.addEventListener('click', function () {
     closePopup(popupImg);
 });
 
-//объект со списком ключей-значений для запуска функций связанных с валидацией
-
-const validationConfig = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_error'
-  }
 
 //запуск функции валидации форм 
 
