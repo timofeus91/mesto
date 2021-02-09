@@ -85,15 +85,12 @@ const placeFormValidation = new FormValidator(validationConfig, placeForm);
 
 //функции
 
+
 //функция по запуску валидации на форму
 
 function startValidation(item) {
     item.enableValidation();
 }
-
-//обьявление функций для валидации
-startValidation(userFormValidation);
-startValidation(placeFormValidation);
 
 //базовая функция по созданию карточки с использованием класса Card. Используется для добавления первых 6 карточек и добавления карточек пользователем. 
 
@@ -173,9 +170,16 @@ function userFormSubmit(evt) {
 
 //обработчики событий и обьявленные функции 
 
+
+
+//объявление функции для добалвения первых 6 карточек 
+
 renderList();
 
+//открытие попапа карточки пользователя, запуск валидации этой формы и добавление слушателей
+
 openUserPopup.addEventListener('click', function () {
+    startValidation(userFormValidation);
     openPopup(popupUser);
     userName.value = nameFromDoc.textContent;
     userAbout.value = aboutUserFromDoc.textContent;
@@ -187,7 +191,10 @@ closeUserPopup.addEventListener('click', function () {
 
 userForm.addEventListener('submit', userFormSubmit);
 
+//открытие попапа карточки места и запуск валидации этой формы
+
 openPlacePopup.addEventListener('click', function () {
+    startValidation(placeFormValidation);
     openPopup(popupPlace);
 });
 
@@ -200,9 +207,3 @@ placeForm.addEventListener('submit', addNewItem);
 closeImgPopup.addEventListener('click', function () {
     closePopup(popupImg);
 });
-
-
-//запуск функции валидации форм 
-
-//enableValidation(validationConfig); 
-

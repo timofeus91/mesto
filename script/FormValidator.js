@@ -45,10 +45,10 @@ _checkInputValidity(input) {
 _setButtonState(isActive) {
   this._button = this._form.querySelector(this._submitButtonSelector);
   if (isActive) {
-    this._button.classList.remove(config.inactiveButtonClass)
+    this._button.classList.remove(this._inactiveButtonClass)
     this._button.disabled = false;
   } else {
-    this._button.classList.add(config.inactiveButtonClass)
+    this._button.classList.add(this._inactiveButtonClass)
     this._button.disabled = true;
   }
 }
