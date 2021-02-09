@@ -9,6 +9,8 @@ export class FormValidator {
     this._submitButtonSelector = object.submitButtonSelector;
     this._inactiveButtonClass = object.inactiveButtonClass;
     this._inputErrorClass = object.inputErrorClass;
+    this._inputList = this._form.querySelectorAll(this._inputSelector);
+    this._button = this._form.querySelector(this._submitButtonSelector);
   }
 
   //метод который показывает ошибку
@@ -43,7 +45,6 @@ _checkInputValidity(input) {
   // метод по проверке кнопки отправки формы и включению-выключению ее активности
 
 _setButtonState(isActive) {
-  this._button = this._form.querySelector(this._submitButtonSelector);
   if (isActive) {
     this._button.classList.remove(this._inactiveButtonClass)
     this._button.disabled = false;
@@ -56,8 +57,6 @@ _setButtonState(isActive) {
 //метод по переборке forEach чтобы добавить слушателей. 
 
 _setEventListener() {
-  this._inputList = this._form.querySelectorAll(this._inputSelector);
-  
   this._inputList.forEach(input => {
     input.addEventListener('input', (evt) => {
     this._checkInputValidity(input)
@@ -73,4 +72,12 @@ enableValidation(){
   this._setButtonState(this._form.checkValidity())
 }
 
+//публичный метод для очистки ошибок и управления кнопкой resetValidation
+
+resetValidation() {
+  this._inputList.forEach((inputElement) => {
+    this._input = inputElement;
+    this._hideError(inputElement)
+  });
+}
 }

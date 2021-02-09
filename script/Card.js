@@ -38,28 +38,30 @@ import { openHugeImg } from './index.js';
         return this._element;
     } 
 
+
+    //приватный метод по удалению карточки
+
+    _removeElement(evt) {
+        const targetItem = evt.target.closest('.elements__item');
+        targetItem.remove();
+    }
+
+    //приватный метод по управлению лайком
+
+    _likeHeart(evt) {
+        evt.target.classList.toggle('elements__heart-button_like');
+    }
+
     //приватный метод по добавлению слушателей событий
     
     _setEventListener() {
         const likeHeart = this._element.querySelector('.elements__heart-button'); 
+        likeHeart.addEventListener('click', this._likeHeart);
 
-        likeHeart.addEventListener('click', (evt) => {
-            evt.target.classList.toggle('elements__heart-button_like');
-        }) 
-
-        const textElement = this._element.querySelector('.elements__text');
         const photoLink = this._element.querySelector('.elements__photo');
-
-        photoLink.addEventListener('click', () => {
-            openHugeImg(textElement, photoLink);
-        })
+        photoLink.addEventListener('click', openHugeImg);
 
         const removeButtonElement = this._element.querySelector('.elements__delete-photo');
-
-        removeButtonElement.addEventListener('click', removeElement);
-        function removeElement(evt) {
-        const targetItem = evt.target.closest('.elements__item');
-        targetItem.remove();
+        removeButtonElement.addEventListener('click', this._removeElement);
         }
     }
-}

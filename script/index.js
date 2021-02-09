@@ -77,11 +77,15 @@ const imgLink = popupImg.querySelector('.popup__image');
 
 const elementsListContainer = document.querySelector('.elements__list');
 
-// переменные с новыми классами 
+// переменные с новыми классами для валидации
 
 const userFormValidation = new FormValidator(validationConfig, userForm);
 const placeFormValidation = new FormValidator(validationConfig, placeForm);
 
+//обьявление функций для валидации 
+
+startValidation(userFormValidation);
+startValidation(placeFormValidation);
 
 //функции
 
@@ -110,11 +114,13 @@ function renderList() {
 
 //функция для открытия большого варианта фото. Экспортируется в Card.js для использования в классе
 
-export function openHugeImg(namePhoto, linkPhoto) {
+export function openHugeImg(evt) {
     openPopup(popupImg);
-    imgName.textContent = namePhoto.textContent;
-    imgLink.src = linkPhoto.src;
-    imgLink.alt = namePhoto.textContent;
+    const hugeImg = evt.target;
+    console.log(hugeImg);
+    imgName.textContent = hugeImg.alt;
+    imgLink.src = hugeImg.src;
+    imgLink.alt = hugeImg.alt;
 }
 
 //функция добавления новой карточки пользователем
@@ -146,9 +152,9 @@ function closePopup(popupElement) {
 //функция которая закрывает popup через клавишу ESC
 
 function escapeClosePopup(evt) {
-    const PopupOpenedEscape = document.querySelector('.popup_opened');
+    const popupOpenedEscape = document.querySelector('.popup_opened');
     if (evt.key === 'Escape') {
-        closePopup(PopupOpenedEscape);
+        closePopup(popupOpenedEscape);
     }
 }
 
@@ -175,13 +181,14 @@ function userFormSubmit(evt) {
 
 renderList();
 
-//открытие попапа карточки пользователя, запуск валидации этой формы и добавление слушателей
+//открытие попапа карточки пользователя, очистка ошибок в инпутах этой формы и добавление слушателей
 
 openUserPopup.addEventListener('click', function () {
-    startValidation(userFormValidation);
+    
     openPopup(popupUser);
     userName.value = nameFromDoc.textContent;
     userAbout.value = aboutUserFromDoc.textContent;
+    userFormValidation.resetValidation();
 });
 
 closeUserPopup.addEventListener('click', function () {
@@ -190,11 +197,12 @@ closeUserPopup.addEventListener('click', function () {
 
 userForm.addEventListener('submit', userFormSubmit);
 
-//открытие попапа карточки места и запуск валидации этой формы
+//открытие попапа карточки места и очистка ошибок инпутов этой формы
 
 openPlacePopup.addEventListener('click', function () {
-    startValidation(placeFormValidation);
+    
     openPopup(popupPlace);
+    placeFormValidation.resetValidation();
 });
 
 closePlacePopup.addEventListener('click', function () {
