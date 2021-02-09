@@ -117,7 +117,6 @@ function renderList() {
 export function openHugeImg(evt) {
     openPopup(popupImg);
     const hugeImg = evt.target;
-    console.log(hugeImg);
     imgName.textContent = hugeImg.alt;
     imgLink.src = hugeImg.src;
     imgLink.alt = hugeImg.alt;
