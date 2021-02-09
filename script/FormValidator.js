@@ -70,10 +70,7 @@ _setEventListener() {
 
 enableValidation(){
   this._setEventListener()
-  this._form.addEventListener('submit', () => {
-    this._setButtonState(this._form.checkValidity())
-  })
-
+  this._setButtonState(this._form.checkValidity())
 }
 
 }
