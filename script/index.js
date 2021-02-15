@@ -3,7 +3,10 @@
 import { Card } from '../components/Card.js';
 
 import { FormValidator } from '../components/FormValidator.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
 
+
+/* Заккоментить весь код для редактуры!!!!!!
 //массив из первых шести карточек по умолчанию
 
 const initialCards = [
@@ -114,7 +117,7 @@ function renderList() {
 
 //функция для открытия большого варианта фото. Экспортируется в Card.js для использования в классе
 
-export function openHugeImg(evt) {
+function handleCardClick(name, link) {
     openPopup(popupImg);
     const hugeImg = evt.target;
     imgName.textContent = hugeImg.alt;
@@ -213,3 +216,36 @@ placeForm.addEventListener('submit', addNewItem);
 closeImgPopup.addEventListener('click', function () {
     closePopup(popupImg);
 });
+
+*/
+
+
+
+//переменные для переноса в другой файл
+
+//Переменные по 3 попапу
+
+const popupImg = document.querySelector('.popup_img');
+const closeImgPopup = popupImg.querySelector('.popup__close');
+
+//переменные в которых записаны создания экземпляров классов связанных с попапами 
+
+//переменная по открытию большого варианта фото
+
+const hugeImg = new PopupWithImage(popupImg);
+
+//функции
+
+//базовая функция по созданию карточки с использованием класса Card. Используется для добавления первых 6 карточек и добавления карточек пользователем. 
+
+function createNewCard(item) {
+    const newCard = new Card(item, '.template__elements-list', () => {
+        hugeImg.open(item);
+    });
+    return newCard.cardCreation();
+}
+
+
+
+
+

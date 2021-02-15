@@ -1,6 +1,3 @@
-//импорт необходимой функции из главного файла js
-
-import { openHugeImg } from '../script/index.js';
 
 //класс который создаёт карточку с текстом и ссылкой на изображение. Экспортируется в главный файл js
 
@@ -8,10 +5,11 @@ import { openHugeImg } from '../script/index.js';
 
     //конструктор с данными карточки и селектором её template-элемента
 
-    constructor(data, cardSelector) {
+    constructor ( data, cardSelector, handleCardClick) {
         this._name = data.name;
         this._link = data.link;
         this._cardSelector = cardSelector;
+        this._handleCardClick = handleCardClick;
     }
 
     //приватный метод по клонированию template элементов
@@ -59,7 +57,9 @@ import { openHugeImg } from '../script/index.js';
         likeHeart.addEventListener('click', this._likeHeart);
 
         const photoLink = this._element.querySelector('.elements__photo');
-        photoLink.addEventListener('click', openHugeImg);
+        photoLink.addEventListener('click', () => {
+            this._handleCardClick(this._name, this._link);
+        });
 
         const removeButtonElement = this._element.querySelector('.elements__delete-photo');
         removeButtonElement.addEventListener('click', this._removeElement);
