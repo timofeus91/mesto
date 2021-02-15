@@ -1,0 +1,20 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Это 1 проектная работа по  курсу \"JavaScript - непростые концепции\"  профессии Веб-разработчик.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timofeus91/mesto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/timofeus91/mesto/issues"
+  },
+  "homepage": "https://github.com/timofeus91/mesto#readme"
+}
