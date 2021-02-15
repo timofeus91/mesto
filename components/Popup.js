@@ -2,19 +2,31 @@
 
 export class Popup {
 
-    //конструктор с параметром - селектор попапа
+    //конструктор с параметром - селектор попапа. Внутри конструктора - селектор попапа,константы этого попапа с методом bind для правильного добавления-удаления слушателя и константа этого попапа с кнопкой закрытия именно этого попапа
 
     constructor(popupSelector) {
         this._popupSelector = popupSelector;
+        this._handleEscClose = this._handleEscClose.bind(this);
+        this._handleMouseClose = this._handleMouseClose.bind(this);
+        this._closePopup = this._popupSelector.querySelector('.popup__close');
+        this.close = this.close.bind(this);
     }
 
     //публичный метод open отвечающий за открытие попапа
 
-    open() {}
+    open() {
+        this._popupSelector.classList.add('popup_opened');
+        document.addEventListener('keydown', this._handleEscClose);
+        this._popupSelector.addEventListener('click', this._handleMouseClose);
+    }
 
     //публичный метод close отвечающий за закрытие попапа
 
-    close() {}
+    close() {
+        this._popupSelector.classList.remove('popup_opened');
+        document.removeEventListener('keydown', this._handleEscClose);
+        this._popupSelector.removeEventListener('click', this._handleMouseClose);
+    }
 
     //приватный метод _handleEscClose содержащий логику закрытия попапа через esc
 
@@ -34,5 +46,8 @@ export class Popup {
 
     // публичный метод setEventListeners, который добавляет слушатель клика иконке закрытия попапа
     
-    setEventListeners() {}
+    setEventListeners() {
+        this._closePopup.addEventListener('click', this.close);
+
+    }
 }
