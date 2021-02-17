@@ -1,4 +1,3 @@
-
 @import url('../vendor/normalize.css');
 @import url('../vendor/fonts.css');
 
@@ -54,7 +53,3 @@
 @import url('../blocks/popup/__title/_img/popup__title_img.css');
 @import url('../blocks/popup/__input/_error/popup__input_error.css');
 @import url('../blocks/popup/__button/_disabled/popup__button_disabled.css');
-
-
-
-

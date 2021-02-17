@@ -4,7 +4,8 @@
   "description": "Это 1 проектная работа по  курсу \"JavaScript - непростые концепции\"  профессии Веб-разработчик.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,24 @@
   "bugs": {
     "url": "https://github.com/timofeus91/mesto/issues"
   },
-  "homepage": "https://github.com/timofeus91/mesto#readme"
+  "homepage": "https://github.com/timofeus91/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/preset-env": "^7.12.16",
+    "autoprefixer": "^10.2.4",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.0.2",
+    "cssnano": "^4.1.10",
+    "html-webpack-plugin": "^5.1.0",
+    "mini-css-extract-plugin": "^1.3.7",
+    "postcss-loader": "^5.0.0",
+    "webpack": "^5.22.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "core-js": "^3.8.3",
+    "rimraf": "^3.0.2"
+  }
 }

@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel='stylesheet' href='./pages/index.css'>
   <title>Путешествия по России</title>
   <meta name='description' content='Практическое задание Яндекс.Практикум'>
   <meta name='keywords' content='Путешествие по России'>
@@ -13,14 +12,14 @@
 <body class='all-content'>
     <div class="page">
         <header class='header page__header'>
-            <img class='header__logo' src='./images/Vector-mesto-logo.svg' alt='Логотип'>
+            <img class='header__logo' src="<%=require('./images/Vector-mesto-logo.svg')%>" alt='Логотип'>
         </header>
 
         <main class='content'>
             
             <section class='profile page__profile'>
               <div class='profile__main-container'>
-                <img class='profile__avatar' src='./images/megacat.jpg' alt='Кот'>
+                <img class='profile__avatar' src="<%=require('./images/megacat.jpg')%>" alt='Кот'>
                 <div class='profile__info'>
                     <div class='profile__title-button'>
                         <h1 class='profile__title'>Бэтмен</h1>
@@ -76,7 +75,7 @@
         <div class='popup popup_img'>
             <div class='popup__container popup__container_img'>
                 <button class="popup__close popup__close_img" type="button"></button>
-                <img class="popup__image" src="#" alt="фото места">
+                <img class="popup__image" src="<%=require('./images/gatchina.jpg')%>" alt="фото места">
                 <h2 class="popup__title popup__title_img"></h2>
             </div>
         </div>
@@ -84,7 +83,7 @@
     </div>
      <template class='template__elements-list'>
         <li class='elements__item'>
-            <img class="elements__photo" src='#' alt='Фото места'>
+            <img class="elements__photo" src="<%=require('./images/gatchina.jpg')%>" alt='Фото места'>
             <button type="button" class='elements__delete-photo'></button>
             <div class='elements__container'>
                 <h2 class='elements__text'></h2>
@@ -92,7 +91,7 @@
             </div> 
         </li> 
     </template>
-    <script type="module" src='./script/index.js'></script>
+    
 </body>
 </html>
 

@@ -1,3 +1,4 @@
+import './index.css'; 
 //Необходимые импорты из других файлов js
 
 import { Card } from '../components/Card.js';
@@ -6,13 +7,7 @@ import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
- import { elementsListContainer, placeLink, placeName, openPlacePopup, placeForm, popupPlace, userAbout, userName, openUserPopup, userForm, popupUser, validationConfig, popupImg, initialCards } from '../components/constants.js';
-
-
-
-
-
-
+import { elementsListContainer, placeLink, placeName, openPlacePopup, placeForm, popupPlace, userAbout, userName, openUserPopup, userForm, popupUser, validationConfig, popupImg, initialCards } from '../components/constants.js';
 
 
 
@@ -66,8 +61,6 @@ const addNewPlace = new PopupWithForm(popupPlace, (evt) => {
 })
 
 
-
-
 //запуск методов на экземпляры классов
 
 //запуск метода по навешиванию слушателя на экземпляр класса большого фото 
@@ -116,10 +109,6 @@ startValidation(userFormValidation);
 startValidation(placeFormValidation);
 
 
-
-
-
-
 //открытие попапа карточки пользователя, очистка ошибок в инпутах этой формы и добавление слушателей
 
 openUserPopup.addEventListener('click', function () {
@@ -141,4 +130,3 @@ openPlacePopup.addEventListener('click', function () {
     addNewPlace.open();
     placeFormValidation.resetValidation();
 }); 
-
