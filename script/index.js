@@ -1,10 +1,12 @@
 //Необходимые импорты из других файлов js
 
 import { Card } from '../components/Card.js';
-
 import { FormValidator } from '../components/FormValidator.js';
+import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
-
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { UserInfo } from '../components/UserInfo.js';
+/* import { КОНСТАНТЫ } from '../components/constants.js'; */
 
 /* Заккоментить весь код для редактуры!!!!!!
 //массив из первых шести карточек по умолчанию
@@ -36,15 +38,7 @@ const initialCards = [
     }
 ];
 
-//объект со списком ключей-значений для запуска функций связанных с валидацией
 
-const validationConfig = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_error'
-  }
 
 
 //переменные 
@@ -221,20 +215,62 @@ closeImgPopup.addEventListener('click', function () {
 
 
 
-//переменные для переноса в другой файл
+//!!!переменные для переноса в другой файл!!!
 
 //Переменные по 3 попапу
 
 const popupImg = document.querySelector('.popup_img');
 const closeImgPopup = popupImg.querySelector('.popup__close');
 
-//переменные в которых записаны создания экземпляров классов связанных с попапами 
+//объект со списком ключей-значений для запуска функций связанных с валидацией
+
+const validationConfig = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_error'
+  }
+//переменные по 1 попапу (имя- профессия )
+  const popupUser = document.querySelector('.popup_user');
+  const userForm = popupUser.querySelector('.popup__form');
+
+
+// переменные по 2 попапу (добавление новой карточки)
+const popupPlace = document.querySelector('.popup_place');
+const placeForm = popupPlace.querySelector('.popup__form');
+
+
+
+
+
+//переменные в которых записаны создания экземпляров классов 
 
 //переменная по открытию большого варианта фото
 
 const hugeImg = new PopupWithImage(popupImg);
 
+// переменные с экземплярами класса для валидации
+
+const userFormValidation = new FormValidator(validationConfig, userForm);
+const placeFormValidation = new FormValidator(validationConfig, placeForm);
+
+//переменная с экземпляром класса для отображения имени-профессии 
+
+const userNameAbout = new UserInfo({ nameFromDoc: '.profile__title', aboutUserFromDoc: '.profile__subtitle' });
+
+
+
+
+
+
 //функции
+
+//функция по запуску валидации на форму
+
+function startValidation(item) {
+    item.enableValidation();
+}
 
 //базовая функция по созданию карточки с использованием класса Card. Используется для добавления первых 6 карточек и добавления карточек пользователем. 
 
@@ -244,6 +280,17 @@ function createNewCard(item) {
     });
     return newCard.cardCreation();
 }
+
+
+//обьявление функций для валидации 
+
+startValidation(userFormValidation);
+startValidation(placeFormValidation);
+
+
+
+
+
 
 
 
