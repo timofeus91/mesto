@@ -309,11 +309,15 @@ const cardList = new Section(
 
 //функции
 
+//запуск метода по навешиванию слушателя на экземпляр класса большого фото 
+
+hugeImg.setEventListeners();
+
 //запуск метода для рендера карточек
 
 cardList.renderItems();
 
-//функция для открытия большого варианта фото. Экспортируется в Card.js для использования в классе
+//функция для открытия большого варианта фото. Используется в классе Card . 
 
 function handleCardClick(name, link) {
     hugeImg.open(name, link);
