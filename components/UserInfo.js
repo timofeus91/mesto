@@ -16,8 +16,11 @@ export class UserInfo {
     }
 
     //публичный метод setUserInfo, который принимает новые данные пользователя (имя, профессия) и добавляет их на страницу
-    setUserInfo(name, about) {
-        this._nameFromDoc = name;
-        this._aboutUserFromDoc - about;
+    setUserInfo() {
+        const popupUser = document.querySelector('.popup_user');
+        const userName = popupUser.querySelector('.popup__input_topform');
+        const userAbout = popupUser.querySelector('.popup__input_bottomform');
+        this._nameFromDoc = userName;
+        this._aboutUserFromDoc - userAbout;
     }
 }

@@ -263,6 +263,7 @@ const validationConfig = {
 //переменные по 1 попапу (имя- профессия )
   const popupUser = document.querySelector('.popup_user');
   const userForm = popupUser.querySelector('.popup__form');
+  const openUserPopup = document.querySelector('.profile__edit-button');
 
 
 // переменные по 2 попапу (добавление новой карточки)
@@ -276,9 +277,12 @@ const elementsListContainer = document.querySelector('.elements__list');
 
 
 
+
+
+
 //переменные в которых записаны создания экземпляров классов 
 
-//переменная по открытию большого варианта фото
+//переменная по создания экземпляра класса PopupWithImage для большого варианта фото
 
 const hugeImg = new PopupWithImage(popupImg);
 
@@ -291,7 +295,7 @@ const placeFormValidation = new FormValidator(validationConfig, placeForm);
 
 const userNameAbout = new UserInfo({ nameFromDoc: '.profile__title', aboutUserFromDoc: '.profile__subtitle' });
 
-//переменная с экземпляром класс для добавления первых 6 карточек 
+//переменная с экземпляром класса Section для добавления первых 6 карточек 
 
 const cardList = new Section( 
     { items: initialCards,
@@ -302,20 +306,50 @@ const cardList = new Section(
      elementsListContainer
 );
 
+//переменная с экземпляром класса PopupWithForm для попапа имзенения имени-профессии 
+
+const editUser = new PopupWithForm(popupUser, (evt) => {
+    evt.preventDefault();
+    userNameAbout.setUserInfo();
+    editUser.close()
+});
+
+//переменная с экземпляром класса PopupWithForm для попапа добавления нового места 
+
+const addNewPlace = new PopupWithForm(popupPlace, (evt) => {
+    evt.preventDefault();
+    const inputtextElement = placeName.value;
+    const inputphotoLink = placeLink.value;
+    const newElements = createNewCard({ name: inputtextElement, link: inputphotoLink });
+    elementsListContainer.prepend(newElements);
+    addNewPlace.close();
+
+})
 
 
 
 
-
-//функции
+//запуск методов на экземпляры классов
 
 //запуск метода по навешиванию слушателя на экземпляр класса большого фото 
 
 hugeImg.setEventListeners();
 
+//запуск метода по навешиванию слушателя на экземпляр класса PopupWithForm
+
+editUser.setEventListeners();
+
+//запуск метода по навешиванию слушателя на экземпляр класса PopupWithForm
+
+addNewPlace.setEventListeners();
+
 //запуск метода для рендера карточек
 
 cardList.renderItems();
+
+
+//функции
+
 
 //функция для открытия большого варианта фото. Используется в классе Card . 
 
@@ -344,17 +378,22 @@ startValidation(placeFormValidation);
 
 
 
-//функция по запуску метода forEach для добавления в html первых 6 карточек из массива initialCards
-
-function renderList() {
-    initialCards.forEach(item => {
-    const listItems = createNewCard(item);
-    elementsListContainer.append(listItems);
-    });
-}
 
 
 
+//открытие попапа карточки пользователя, очистка ошибок в инпутах этой формы и добавление слушателей
+
+openUserPopup.addEventListener('click', function () {
+    userFormValidation.resetValidation();
+    editUser.open();
+    
+});
 
 
+//открытие попапа карточки места и очистка ошибок инпутов этой формы
 
+openPlacePopup.addEventListener('click', function () {
+    
+    openPopup(popupPlace);
+    placeFormValidation.resetValidation();
+});
