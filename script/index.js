@@ -315,7 +315,10 @@ const cardList = new Section(
 
 const editUser = new PopupWithForm(popupUser, (evt) => {
     evt.preventDefault();
-    userNameAbout.setUserInfo();
+    const name = userName.value;
+    const about = userAbout.value;
+    userNameAbout.setUserInfo(name, about);
+    console.log(name, about);
     editUser.close()
 });
 
@@ -342,7 +345,7 @@ hugeImg.setEventListeners();
 
 //запуск метода по навешиванию слушателя на экземпляр класса PopupWithForm
 
-
+editUser.setEventListeners();
 
 //запуск метода по навешиванию слушателя на экземпляр класса PopupWithForm
 
@@ -389,13 +392,13 @@ startValidation(placeFormValidation);
 //открытие попапа карточки пользователя, очистка ошибок в инпутах этой формы и добавление слушателей
 
 openUserPopup.addEventListener('click', function () {
-    
+    editUser.open();
+    userFormValidation.resetValidation();
     const { name, about } = userNameAbout.getUserInfo();
     userName.value = name.textContent;
     userAbout.value = about.textContent;
     editUser.open();
-    userFormValidation.resetValidation();
-    editUser.setEventListeners();
+    
     
 });
 
