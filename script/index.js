@@ -217,6 +217,35 @@ closeImgPopup.addEventListener('click', function () {
 
 //!!!переменные для переноса в другой файл!!!
 
+//массив из первых шести карточек по умолчанию
+
+const initialCards = [
+    {
+        name: 'Архыз',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+        name: 'Челябинская область',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+        name: 'Иваново',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+        name: 'Камчатка',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+        name: 'Холмогорский район',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+        name: 'Байкал',
+        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+];
+
 //Переменные по 3 попапу
 
 const popupImg = document.querySelector('.popup_img');
@@ -240,6 +269,9 @@ const validationConfig = {
 const popupPlace = document.querySelector('.popup_place');
 const placeForm = popupPlace.querySelector('.popup__form');
 
+//переменная по загрузке первых карточек и добавлению новых
+
+const elementsListContainer = document.querySelector('.elements__list');
 
 
 
@@ -259,12 +291,33 @@ const placeFormValidation = new FormValidator(validationConfig, placeForm);
 
 const userNameAbout = new UserInfo({ nameFromDoc: '.profile__title', aboutUserFromDoc: '.profile__subtitle' });
 
+//переменная с экземпляром класс для добавления первых 6 карточек 
+
+const cardList = new Section( 
+    { items: initialCards,
+     renderer: (item) => {
+         const listElement = createNewCard(item);
+         cardList.addItem(listElement);
+     } }, 
+     elementsListContainer
+);
+
 
 
 
 
 
 //функции
+
+//запуск метода для рендера карточек
+
+cardList.renderItems();
+
+//функция для открытия большого варианта фото. Экспортируется в Card.js для использования в классе
+
+function handleCardClick(name, link) {
+    hugeImg.open(name, link);
+}
 
 //функция по запуску валидации на форму
 
@@ -275,9 +328,7 @@ function startValidation(item) {
 //базовая функция по созданию карточки с использованием класса Card. Используется для добавления первых 6 карточек и добавления карточек пользователем. 
 
 function createNewCard(item) {
-    const newCard = new Card(item, '.template__elements-list', () => {
-        hugeImg.open(item);
-    });
+    const newCard = new Card(item, '.template__elements-list', handleCardClick);
     return newCard.cardCreation();
 }
 
@@ -289,7 +340,14 @@ startValidation(placeFormValidation);
 
 
 
+//функция по запуску метода forEach для добавления в html первых 6 карточек из массива initialCards
 
+function renderList() {
+    initialCards.forEach(item => {
+    const listItems = createNewCard(item);
+    elementsListContainer.append(listItems);
+    });
+}
 
 
 

@@ -1,6 +1,6 @@
 //необходимый импорт родительского класса
 
-import { Popup } from "./Popup";
+import { Popup } from "./Popup.js";
 
 //класс PopupWithImage который наследует от Popup. Нужен для открытия большого варианта фотографии 
 
@@ -16,11 +16,11 @@ export class PopupWithImage extends Popup {
     
     open(namePhoto, linkPhoto) {
         super.open();
-        const imgName = popupImg.querySelector('.popup__title');
-        const imgLink = popupImg.querySelector('.popup__image');
-        imgName.textContent = namePhoto.textContent;
-        imgLink.src = linkPhoto.src;
-        imgLink.alt = namePhoto.textContent;
+        const imgName = document.querySelector('.popup__title_img');
+        const imgLink = document.querySelector('.popup__image');
+        imgName.textContent = namePhoto;
+        imgLink.src = linkPhoto;
+        imgLink.alt = namePhoto;
     }
 
 }
