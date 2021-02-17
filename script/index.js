@@ -264,11 +264,16 @@ const validationConfig = {
   const popupUser = document.querySelector('.popup_user');
   const userForm = popupUser.querySelector('.popup__form');
   const openUserPopup = document.querySelector('.profile__edit-button');
+  const userName = popupUser.querySelector('.popup__input_topform');
+  const userAbout = popupUser.querySelector('.popup__input_bottomform');
 
 
 // переменные по 2 попапу (добавление новой карточки)
 const popupPlace = document.querySelector('.popup_place');
 const placeForm = popupPlace.querySelector('.popup__form');
+const openPlacePopup = document.querySelector('.profile__add-button');
+const placeName = popupPlace.querySelector('.popup__input_topform');
+const placeLink = popupPlace.querySelector('.popup__input_bottomform');
 
 //переменная по загрузке первых карточек и добавлению новых
 
@@ -337,7 +342,7 @@ hugeImg.setEventListeners();
 
 //запуск метода по навешиванию слушателя на экземпляр класса PopupWithForm
 
-editUser.setEventListeners();
+
 
 //запуск метода по навешиванию слушателя на экземпляр класса PopupWithForm
 
@@ -384,8 +389,13 @@ startValidation(placeFormValidation);
 //открытие попапа карточки пользователя, очистка ошибок в инпутах этой формы и добавление слушателей
 
 openUserPopup.addEventListener('click', function () {
-    userFormValidation.resetValidation();
+    
+    const { name, about } = userNameAbout.getUserInfo();
+    userName.value = name.textContent;
+    userAbout.value = about.textContent;
     editUser.open();
+    userFormValidation.resetValidation();
+    editUser.setEventListeners();
     
 });
 
@@ -394,6 +404,7 @@ openUserPopup.addEventListener('click', function () {
 
 openPlacePopup.addEventListener('click', function () {
     
-    openPopup(popupPlace);
+    addNewPlace.open();
     placeFormValidation.resetValidation();
-});
+}); 
+

@@ -20,7 +20,7 @@ export class UserInfo {
         const popupUser = document.querySelector('.popup_user');
         const userName = popupUser.querySelector('.popup__input_topform');
         const userAbout = popupUser.querySelector('.popup__input_bottomform');
-        this._nameFromDoc = userName;
-        this._aboutUserFromDoc - userAbout;
+        this._nameFromDoc = userName.value;
+        this._aboutUserFromDoc - userAbout.value;
     }
 }

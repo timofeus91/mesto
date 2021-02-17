@@ -79,5 +79,7 @@ resetValidation() {
     this._input = inputElement;
     this._hideError(inputElement)
   });
+
+  this._setButtonState(false);
 }
 }
