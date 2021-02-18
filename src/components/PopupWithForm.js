@@ -14,8 +14,8 @@ export class PopupWithForm extends Popup {
         
     }
 
-    //приватный метод , который собирает данные всех полей формы и возвращает их
-    _getInputValues() {
+       //приватный метод , который собирает данные всех полей формы и возвращает их
+       _getInputValues() {
         const values = {};
         const allValue = this._form.querySelectorAll('.popup__input');
         allValue.forEach(item => {
@@ -31,11 +31,6 @@ export class PopupWithForm extends Popup {
         this._form.addEventListener('submit', (evt) => {
             evt.preventDefault();
             this._submitForm(this._getInputValues());
-            
-            
-            
-            
-            
         });
     }
 

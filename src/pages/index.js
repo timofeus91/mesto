@@ -40,7 +40,7 @@ const cardList = new Section(
 //переменная с экземпляром класса PopupWithForm для попапа имзенения имени-профессии 
 
 const editUser = new PopupWithForm(popupUser, (values) => {
-    userNameAbout.setUserInfo(values.name, values.about);  
+    userNameAbout.setUserInfo(values['popup-name'], values['popup-about']);  
     editUser.close()
     
 });
@@ -48,11 +48,10 @@ const editUser = new PopupWithForm(popupUser, (values) => {
 //переменная с экземпляром класса PopupWithForm для попапа добавления нового места 
 
 const addNewPlace = new PopupWithForm(popupPlace, (values) => {
-    const newElements = createNewCard({ name: values.name, link: values.about });
+    const newElements = createNewCard({ name: values['popup-name-place'], link: values['popup-link-photo'] });
     cardList.prependItem(newElements);
     addNewPlace.close();
-})
-
+});
 
 //запуск методов на экземпляры классов
 
