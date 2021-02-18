@@ -34,7 +34,6 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
-    "core-js": "^3.8.3",
-    "rimraf": "^3.0.2"
+    "core-js": "^3.8.3"
   }
 }
