@@ -21,4 +21,10 @@ export class Section {
     addItem(element) {
         this._containerSelector.append(element);
     }
+
+    //публичный метод который вставляет новую карточку в начало
+
+    prependItem(element) {
+        this._containerSelector.prepend(element);
+    }
 }

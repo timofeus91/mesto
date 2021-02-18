@@ -39,25 +39,18 @@ const cardList = new Section(
 
 //переменная с экземпляром класса PopupWithForm для попапа имзенения имени-профессии 
 
-const editUser = new PopupWithForm(popupUser, (evt) => {
-    evt.preventDefault();
-    const name = userName.value;
-    const about = userAbout.value;
-    userNameAbout.setUserInfo(name, about);
-    console.log(name, about);
+const editUser = new PopupWithForm(popupUser, (values) => {
+    userNameAbout.setUserInfo(values.name, values.about);  
     editUser.close()
+    
 });
 
 //переменная с экземпляром класса PopupWithForm для попапа добавления нового места 
 
-const addNewPlace = new PopupWithForm(popupPlace, (evt) => {
-    evt.preventDefault();
-    const inputtextElement = placeName.value;
-    const inputphotoLink = placeLink.value;
-    const newElements = createNewCard({ name: inputtextElement, link: inputphotoLink });
-    elementsListContainer.prepend(newElements);
+const addNewPlace = new PopupWithForm(popupPlace, (values) => {
+    const newElements = createNewCard({ name: values.name, link: values.about });
+    cardList.prependItem(newElements);
     addNewPlace.close();
-
 })
 
 
@@ -117,8 +110,6 @@ openUserPopup.addEventListener('click', function () {
     const { name, about } = userNameAbout.getUserInfo();
     userName.value = name.textContent;
     userAbout.value = about.textContent;
-    editUser.open();
-    
     
 });
 
