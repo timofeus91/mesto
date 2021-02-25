@@ -16,7 +16,7 @@ import { Api } from '../components/Api.js';
 //переменные в которых записаны создания экземпляров классов 
 
 //переменная в которую записан экземпляр класса Api для подключения Api
-/*
+
 const api = new Api({
     url: "https://mesto.nomoreparties.co/v1/cohort-20/", 
     headers: {
@@ -25,10 +25,10 @@ const api = new Api({
     }
 });
 
+console.log(api);
 
-const tryGetCards = api.getInitialCards();
-console.log(tryGetCards);
-*/
+
+
 
 //переменная по создания экземпляра класса PopupWithImage для большого варианта фото
 
