@@ -19,7 +19,11 @@
             
             <section class='profile page__profile'>
               <div class='profile__main-container'>
-                <img class='profile__avatar' src="<%=require('./images/megacat.jpg')%>" alt='Кот'>
+                <div class='profile__avatar-container'>
+                    <img class='profile__avatar' src="<%=require('./images/megacat.jpg')%>" alt='Кот'>
+                    <button class='profile__avatar-edit' type="button"></button>
+                    
+                </div>
                 <div class='profile__info'>
                     <div class='profile__title-button'>
                         <h1 class='profile__title'>Бэтмен</h1>

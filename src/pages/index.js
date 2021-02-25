@@ -9,9 +9,26 @@ import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { elementsListContainer, placeLink, placeName, openPlacePopup, placeForm, popupPlace, userAbout, userName, openUserPopup, userForm, popupUser, validationConfig, popupImg, initialCards } from '../components/constants.js';
 
+import { Api } from '../components/Api.js';
+
 
 
 //переменные в которых записаны создания экземпляров классов 
+
+//переменная в которую записан экземпляр класса Api для подключения Api
+/*
+const api = new Api({
+    url: "https://mesto.nomoreparties.co/v1/cohort-20/", 
+    headers: {
+        "content-type": "application/json",
+        "Authorization": "43c52a6d-19a6-461e-b067-2db5e03ba70b",
+    }
+});
+
+
+const tryGetCards = api.getInitialCards();
+console.log(tryGetCards);
+*/
 
 //переменная по создания экземпляра класса PopupWithImage для большого варианта фото
 
