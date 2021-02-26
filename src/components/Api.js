@@ -7,9 +7,21 @@ export class Api {
     }
 
     getInitialCards() {
-        fetch(`${this._url}cards`, {
+       return fetch(`${this._url}cards`, {
              method: 'GEt',
              headers: this._headers, 
-        })
+        }).then((res) => {
+            if (res.ok) {
+                return res.json()
+            }
+            return Promise.reject(res.status);
+        });
     }
+
+
+
+
+
+
 }
+

@@ -12,8 +12,8 @@ import { elementsListContainer, placeLink, placeName, openPlacePopup, placeForm,
 import { Api } from '../components/Api.js';
 
 
-
 //переменные в которых записаны создания экземпляров классов 
+
 
 //переменная в которую записан экземпляр класса Api для подключения Api
 
@@ -25,7 +25,27 @@ const api = new Api({
     }
 });
 
-console.log(api);
+
+const tryGetCards = api.getInitialCards()
+console.log(tryGetCards);
+
+
+
+
+//новые переменные , которые потом перенести в constants
+
+//переменные по попапу новой аватарки 
+const avatarPopup = document.querySelector('.popup_new-avatar');
+const openAvatarPopup = document.querySelector('.profile__avatar-edit');
+const avatarForm = avatarPopup.querySelector('.popup__form');
+const avatarLink = avatarPopup.querySelector('.popup__input_topform');
+
+//переменные по попапу уточнению
+const surePopup = document.querySelector('.popup_areyousure');
+const sureForm = surePopup.querySelector('.popup__form');
+
+
+
 
 
 
@@ -56,27 +76,19 @@ const cardList = new Section(
 
 //переменная с экземпляром класса PopupWithForm для попапа имзенения имени-профессии 
 
-const editUser = new PopupWithForm(popupUser, (evt) => {
-    evt.preventDefault();
-    const name = userName.value;
-    const about = userAbout.value;
-    userNameAbout.setUserInfo(name, about);
-    console.log(name, about);
+const editUser = new PopupWithForm(popupUser, (values) => {
+    userNameAbout.setUserInfo(values['popup-name'], values['popup-about']);  
     editUser.close()
+    
 });
 
 //переменная с экземпляром класса PopupWithForm для попапа добавления нового места 
 
-const addNewPlace = new PopupWithForm(popupPlace, (evt) => {
-    evt.preventDefault();
-    const inputtextElement = placeName.value;
-    const inputphotoLink = placeLink.value;
-    const newElements = createNewCard({ name: inputtextElement, link: inputphotoLink });
-    elementsListContainer.prepend(newElements);
+const addNewPlace = new PopupWithForm(popupPlace, (values) => {
+    const newElements = createNewCard({ name: values['popup-name-place'], link: values['popup-link-photo'] });
+    cardList.prependItem(newElements);
     addNewPlace.close();
-
-})
-
+});
 
 //запуск методов на экземпляры классов
 
@@ -134,8 +146,6 @@ openUserPopup.addEventListener('click', function () {
     const { name, about } = userNameAbout.getUserInfo();
     userName.value = name.textContent;
     userAbout.value = about.textContent;
-    editUser.open();
-    
     
 });
 

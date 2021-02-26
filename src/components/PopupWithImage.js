@@ -7,20 +7,20 @@ import { Popup } from "./Popup.js";
 export class PopupWithImage extends Popup {
 
     // конструктор которая принимает попап большого варианта фота
-    constructor(popupSelector) {
-        super(popupSelector);
+    constructor(popup) {
+        super(popup);
+        this._imgName = document.querySelector('.popup__title_img');
+        this._imgLink = document.querySelector('.popup__image');
         
     }
 
     //переписанный публичный метод для открытия большого варианата фотографии
     
     open(namePhoto, linkPhoto) {
-        super.open();
-        const imgName = document.querySelector('.popup__title_img');
-        const imgLink = document.querySelector('.popup__image');
-        imgName.textContent = namePhoto;
-        imgLink.src = linkPhoto;
-        imgLink.alt = namePhoto;
+        super.open();   
+        this._imgName.textContent = namePhoto;
+        this._imgLink.src = linkPhoto;
+        this._imgLink.alt = namePhoto;
     }
 
 }

@@ -1,7 +1,7 @@
 
 .elements__heart-button {
     padding: 0;
-    margin: 31px 22px 30px auto;
+    margin: 0;
     background-image: url('../../../images/Vector-heart.svg');
     background-repeat: no-repeat;
     cursor: pointer;
