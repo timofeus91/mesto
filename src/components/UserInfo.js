@@ -4,6 +4,7 @@ export class UserInfo {
     constructor({ nameFromDoc, aboutUserFromDoc }) {
         this._nameFromDoc = document.querySelector(nameFromDoc);
         this._aboutUserFromDoc = document.querySelector(aboutUserFromDoc);
+        this._userAvatar = document.querySelector('.profile__avatar');
     }
 
     //публичный метод getUserInfo, который возвращает объект с данными пользователя
@@ -19,5 +20,10 @@ export class UserInfo {
     setUserInfo(name, about) {
         this._nameFromDoc.textContent = name;
         this._aboutUserFromDoc.textContent = about;
+    }
+
+    //публичный метод setUserAvatar, который используется для смены аватарки на странице
+    setUserAvatar(avatar) {
+        this._userAvatar.src = avatar;
     }
 }

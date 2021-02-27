@@ -56,6 +56,74 @@ export class Api {
          });
     }
 
+    //метод по изменению информации о пользователе
+
+    editUserInfo(data) {
+        return fetch(`${this._url}users/me`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({
+                name: data.name,
+                link: data.link,
+              })
+        }).then((res) => {
+            if (res.ok) {
+                return res.json()
+            }
+
+            return Promise.reject(`Сервер недоступен. Ошибка: ${res.status}.`);
+        });
+    }
+
+    //метод по смене аватарки
+
+    editUserAvatar(url) {
+        return fetch(`${this._url}users/me/avatar`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({
+                avatar: url.link,
+              })
+        }).then((res) => {
+            if (res.ok) {
+                return res.json()
+            }
+
+            return Promise.reject(`Сервер недоступен. Ошибка: ${res.status}.`);
+        });
+    }
+
+
+    //метод по установке лайка
+
+    putLike(card) {
+        return fetch(`${this._url}cards/likes${card._id}/`, {
+            method: 'PUT',
+            headers: this._headers,
+      }).then((res) => {
+           if (res.ok) {
+               return res.json()
+           }
+
+           return Promise.reject(`Сервер недоступен. Ошибка: ${res.status}.`);
+       });
+    }
+
+    //метод по снятию лайка
+
+    removeLike(card) {
+        return fetch(`${this._url}cards/likes${card._id}/`, {
+            method: 'DELETE',
+            headers: this._headers,
+      }).then((res) => {
+           if (res.ok) {
+               return res.json()
+           }
+
+           return Promise.reject(`Сервер недоступен. Ошибка: ${res.status}.`);
+       });
+    }
+
 
 
 

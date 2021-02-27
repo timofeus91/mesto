@@ -43,6 +43,8 @@ const avatarLink = avatarPopup.querySelector('.popup__input_topform');
 const surePopup = document.querySelector('.popup_areyousure');
 const sureForm = surePopup.querySelector('.popup__form');
 
+//переменная с количеством лайков
+
 
 
 
@@ -55,6 +57,7 @@ const hugeImg = new PopupWithImage(popupImg);
 
 // переменные с экземплярами класса для валидации
 
+const userAvatarValidation = new FormValidator(validationConfig, avatarForm);
 const userFormValidation = new FormValidator(validationConfig, userForm);
 const placeFormValidation = new FormValidator(validationConfig, placeForm);
 
@@ -87,20 +90,6 @@ api
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Загрузка новой карточки с помощью Api
 const addNewPlace = new PopupWithForm(popupPlace, (values) => {
     const data = {name: values['popup-name-place'], link: values['popup-link-photo']};
@@ -108,7 +97,7 @@ const addNewPlace = new PopupWithForm(popupPlace, (values) => {
         .addNewCard(data)
         .then(data => {
             const newElements = createNewCard(data);
-            cardList.prependItem(newElements);
+            
             const newElementsLoading = new Section({
                 items: data,
                 renderer: () => {}
@@ -126,8 +115,29 @@ const addNewPlace = new PopupWithForm(popupPlace, (values) => {
 
 });
 
-const tryUserInfo = api.getUserInfo();
-console.log(tryUserInfo);
+
+//Смена аватара с помощью айпи
+
+const newAvatar = new PopupWithForm(avatarPopup, (values) => {
+    
+    api
+        .editUserAvatar({ url: values['new-avatar-photo']})
+        .then(data => {
+            console.log(data);
+            /*userNameAbout.setUserAvatar(data.avatar);*/
+        }) 
+
+        .catch((err) => {
+            console.log(err);
+        })
+
+        .finally(() => {
+            avatarPopup.close();
+        })
+
+}); 
+
+
 
 
 
@@ -139,13 +149,6 @@ const editUser = new PopupWithForm(popupUser, (values) => {
     
 });
 
-//переменная с экземпляром класса PopupWithForm для попапа добавления нового места 
-/*
-const addNewPlace = new PopupWithForm(popupPlace, (values) => {
-    const newElements = createNewCard({ name: values['popup-name-place'], link: values['popup-link-photo'] });
-    cardList.prependItem(newElements);
-    addNewPlace.close();
-}); */
 
 //запуск методов на экземпляры классов
 
@@ -161,10 +164,9 @@ editUser.setEventListeners();
 
 addNewPlace.setEventListeners();
 
-//запуск метода для рендера карточек
+//запуск метода по навешиванию слушателя на экземпляр класса PopupWithForm
 
-//cardList.renderItems();
-
+newAvatar.setEventListeners();
 
 //функции
 
@@ -193,7 +195,14 @@ function createNewCard(item) {
 
 startValidation(userFormValidation);
 startValidation(placeFormValidation);
+startValidation(userAvatarValidation);
 
+//открытие попапа смены аватарки пользователя, очистка ошибок в инпутах этой формы.
+
+openAvatarPopup.addEventListener('click', function () {
+    newAvatar.open();
+    userAvatarValidation.resetValidation();
+})
 
 //открытие попапа карточки пользователя, очистка ошибок в инпутах этой формы и добавление слушателей
 
