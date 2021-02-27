@@ -25,6 +25,8 @@ const api = new Api({
     }
 });
 
+const tryGetUserInfo = api.getUserInfo()
+console.log(tryGetUserInfo);
 
 
 
@@ -116,15 +118,15 @@ const addNewPlace = new PopupWithForm(popupPlace, (values) => {
 });
 
 
-//Смена аватара с помощью айпи
+//Смена аватара с помощью Api
 
 const newAvatar = new PopupWithForm(avatarPopup, (values) => {
+    const avatar = {link: values['new-avatar-photo']}
     
     api
-        .editUserAvatar({ url: values['new-avatar-photo']})
+        .editUserAvatar(avatar)
         .then(data => {
-            console.log(data);
-            /*userNameAbout.setUserAvatar(data.avatar);*/
+            userNameAbout.setUserAvatar(data.avatar);
         }) 
 
         .catch((err) => {
@@ -132,20 +134,31 @@ const newAvatar = new PopupWithForm(avatarPopup, (values) => {
         })
 
         .finally(() => {
-            avatarPopup.close();
+            newAvatar.close();
         })
 
 }); 
 
 
 
+//переменная с экземпляром класса PopupWithForm для попапа изменения имени-профессии при помощи APi 
 
+const editUserPopup = new PopupWithForm(popupUser, (values) => {
+    const newUserInfo = { name: values['popup-name'], about: values['popup-about'] };
+    api
+        .editUserInfo(newUserInfo)
+        .then(data => {
+            userNameAbout.setUserInfo(data);
+        })
 
-//переменная с экземпляром класса PopupWithForm для попапа имзенения имени-профессии 
+        .catch((err) => {
+            console.log(err);
+        })
 
-const editUser = new PopupWithForm(popupUser, (values) => {
-    userNameAbout.setUserInfo(values['popup-name'], values['popup-about']);  
-    editUser.close()
+        .finally(() => {
+            editUserPopup.close()
+        })
+    
     
 });
 
@@ -158,7 +171,7 @@ hugeImg.setEventListeners();
 
 //запуск метода по навешиванию слушателя на экземпляр класса PopupWithForm
 
-editUser.setEventListeners();
+editUserPopup.setEventListeners();
 
 //запуск метода по навешиванию слушателя на экземпляр класса PopupWithForm
 
@@ -207,7 +220,7 @@ openAvatarPopup.addEventListener('click', function () {
 //открытие попапа карточки пользователя, очистка ошибок в инпутах этой формы и добавление слушателей
 
 openUserPopup.addEventListener('click', function () {
-    editUser.open();
+    editUserPopup.open();
     userFormValidation.resetValidation();
     const { name, about } = userNameAbout.getUserInfo();
     userName.value = name.textContent;

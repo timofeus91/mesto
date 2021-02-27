@@ -64,7 +64,7 @@ export class Api {
             headers: this._headers,
             body: JSON.stringify({
                 name: data.name,
-                link: data.link,
+                about: data.about,
               })
         }).then((res) => {
             if (res.ok) {
@@ -77,12 +77,12 @@ export class Api {
 
     //метод по смене аватарки
 
-    editUserAvatar(url) {
+    editUserAvatar(data) {
         return fetch(`${this._url}users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                avatar: url.link,
+                avatar: data.link
               })
         }).then((res) => {
             if (res.ok) {

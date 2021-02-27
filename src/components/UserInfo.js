@@ -17,9 +17,9 @@ export class UserInfo {
     }
 
     //публичный метод setUserInfo, который принимает новые данные пользователя (имя, профессия) и добавляет их на страницу
-    setUserInfo(name, about) {
-        this._nameFromDoc.textContent = name;
-        this._aboutUserFromDoc.textContent = about;
+    setUserInfo(data) {
+        this._nameFromDoc.textContent = data.name;
+        this._aboutUserFromDoc.textContent = data.about;
     }
 
     //публичный метод setUserAvatar, который используется для смены аватарки на странице
