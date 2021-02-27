@@ -41,6 +41,20 @@ export class Api {
          });
     }
 
+    //метод по получению информации о пользователе
+
+    getUserInfo() {
+        return fetch(`${this._url}users/me`, {
+              method: 'GET',
+              headers: this._headers,
+        }).then((res) => {
+             if (res.ok) {
+                 return res.json()
+             }
+
+             return Promise.reject(`Сервер недоступен. Ошибка: ${res.status}.`);
+         });
+    }
 
 
 

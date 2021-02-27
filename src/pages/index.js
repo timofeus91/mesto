@@ -109,15 +109,25 @@ const addNewPlace = new PopupWithForm(popupPlace, (values) => {
         .then(data => {
             const newElements = createNewCard(data);
             cardList.prependItem(newElements);
-            
-        }, cardList.renderItems(),
-        addNewPlace.close() )
+            const newElementsLoading = new Section({
+                items: data,
+                renderer: () => {}
+            }, elementsListContainer)
+            newElementsLoading.prependItem(newElements);
+        })
 
         .catch((err) => {
             console.log(err);
         })
 
+        .finally(() => {
+            addNewPlace.close();
+        })
+
 });
+
+const tryUserInfo = api.getUserInfo();
+console.log(tryUserInfo);
 
 
 
