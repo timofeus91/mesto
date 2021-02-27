@@ -7,7 +7,7 @@ import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
-import { elementsListContainer, placeLink, placeName, openPlacePopup, placeForm, popupPlace, userAbout, userName, openUserPopup, userForm, popupUser, validationConfig, popupImg, initialCards } from '../components/constants.js';
+import { elementsListContainer, placeLink, placeName, openPlacePopup, placeForm, popupPlace, userAbout, userName, openUserPopup, userForm, popupUser, validationConfig, popupImg } from '../components/constants.js';
 
 import { Api } from '../components/Api.js';
 
@@ -26,8 +26,7 @@ const api = new Api({
 });
 
 
-const tryGetCards = api.getInitialCards()
-console.log(tryGetCards);
+
 
 
 
@@ -63,16 +62,64 @@ const placeFormValidation = new FormValidator(validationConfig, placeForm);
 
 const userNameAbout = new UserInfo({ nameFromDoc: '.profile__title', aboutUserFromDoc: '.profile__subtitle' });
 
-//переменная с экземпляром класса Section для добавления первых 6 карточек 
 
-const cardList = new Section( 
-    { items: initialCards,
-     renderer: (item) => {
-         const listElement = createNewCard(item);
-         cardList.addItem(listElement);
-     } }, 
-     elementsListContainer
-);
+
+
+// Загрузка первых карточек с помощью Api . (OMG!)
+api
+    .getInitialCards()
+    .then(data => {
+    const cardList = new Section( 
+        { items: data,
+          renderer: (item) => {
+             const listElement = createNewCard(item);
+             cardList.addItem(listElement);
+          } 
+        }, 
+         elementsListContainer
+    )
+    cardList.renderItems();
+
+   })
+   .catch((err) => {
+       console.log(err);
+   })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Загрузка новой карточки с помощью Api
+const addNewPlace = new PopupWithForm(popupPlace, (values) => {
+    const data = {name: values['popup-name-place'], link: values['popup-link-photo']};
+    api
+        .addNewCard(data)
+        .then(data => {
+            const newElements = createNewCard(data);
+            cardList.prependItem(newElements);
+            
+        }, cardList.renderItems(),
+        addNewPlace.close() )
+
+        .catch((err) => {
+            console.log(err);
+        })
+
+});
+
+
 
 //переменная с экземпляром класса PopupWithForm для попапа имзенения имени-профессии 
 
@@ -83,12 +130,12 @@ const editUser = new PopupWithForm(popupUser, (values) => {
 });
 
 //переменная с экземпляром класса PopupWithForm для попапа добавления нового места 
-
+/*
 const addNewPlace = new PopupWithForm(popupPlace, (values) => {
     const newElements = createNewCard({ name: values['popup-name-place'], link: values['popup-link-photo'] });
     cardList.prependItem(newElements);
     addNewPlace.close();
-});
+}); */
 
 //запуск методов на экземпляры классов
 
@@ -106,7 +153,7 @@ addNewPlace.setEventListeners();
 
 //запуск метода для рендера карточек
 
-cardList.renderItems();
+//cardList.renderItems();
 
 
 //функции
