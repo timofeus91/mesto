@@ -26,4 +26,14 @@ export class UserInfo {
     setUserAvatar(avatar) {
         this._userAvatar.src = avatar;
     }
+
+    //публичный метод показывает id пользователя из обьекта с данными пользователя
+    setUserId(data) {
+        this._userId = data._id;
+    }
+
+    //публичный метод getUserId, который дает id пользователя в экземпляр Card
+    getUserId() {
+        return this._userId
+    }
 }

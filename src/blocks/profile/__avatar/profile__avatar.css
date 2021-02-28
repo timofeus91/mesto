@@ -3,7 +3,7 @@
     object-fit: cover;
     border-radius: 50%;
     width: inherit;
-    max-height: inherit;
+    height: 120px;
 }
 
 

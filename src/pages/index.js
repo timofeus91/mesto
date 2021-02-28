@@ -25,12 +25,22 @@ const api = new Api({
     }
 });
 
-const tryGetUserInfo = api.getUserInfo()
-console.log(tryGetUserInfo);
 
+// переменная где хранится объект с данными пользователя.
+const userObj = api.getUserInfo()
+                    .then(data => {
+                        userNameAbout.setUserInfo(data)
+                        userNameAbout.setUserAvatar(data.avatar)
+                        userNameAbout.setUserId(data);
+                        
+                        
+                    })
 
+                    .catch((err) => {
+                        console.log(err);
+                    })
 
-
+                    
 
 
 //новые переменные , которые потом перенести в constants
@@ -44,12 +54,6 @@ const avatarLink = avatarPopup.querySelector('.popup__input_topform');
 //переменные по попапу уточнению
 const surePopup = document.querySelector('.popup_areyousure');
 const sureForm = surePopup.querySelector('.popup__form');
-
-//переменная с количеством лайков
-
-
-
-
 
 
 
@@ -68,9 +72,7 @@ const placeFormValidation = new FormValidator(validationConfig, placeForm);
 const userNameAbout = new UserInfo({ nameFromDoc: '.profile__title', aboutUserFromDoc: '.profile__subtitle' });
 
 
-
-
-// Загрузка первых карточек с помощью Api . (OMG!)
+// Загрузка первых карточек с помощью Api. (OMG!)
 api
     .getInitialCards()
     .then(data => {
@@ -79,6 +81,7 @@ api
           renderer: (item) => {
              const listElement = createNewCard(item);
              cardList.addItem(listElement);
+             //console.log(item);
           } 
         }, 
          elementsListContainer
@@ -183,6 +186,15 @@ newAvatar.setEventListeners();
 
 //функции
 
+//функция по рендеру иконки удаления на карточке
+
+function rendererDeleteButtonCard() {
+    const deleteButton = this.element.querySelector('.elements__delete-photo');
+    if (this.ownerId === this.userId) {
+        deleteButton.classList.add('elements__delete-photo_active');
+    }
+}
+
 
 //функция для открытия большого варианта фото. Используется в классе Card . 
 
@@ -196,10 +208,10 @@ function startValidation(item) {
     item.enableValidation();
 }
 
-//базовая функция по созданию карточки с использованием класса Card. Используется для добавления первых 6 карточек и добавления карточек пользователем. 
+//базовая функция по созданию карточки с использованием класса Card. Используется для добавления карточек с сервера,добавления карточек пользователем и отображением данных пользователя (имя, профессия, аватарка) с сервера, получения данных о том на какую карточку вешать кнопку удаления. 
 
 function createNewCard(item) {
-    const newCard = new Card(item, '.template__elements-list', handleCardClick);
+    const newCard = new Card(item, '.template__elements-list', handleCardClick, userObj, userNameAbout.getUserId(), rendererDeleteButtonCard, );
     return newCard.cardCreation();
 }
 
