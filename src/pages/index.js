@@ -8,6 +8,7 @@ import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { elementsListContainer, placeLink, placeName, openPlacePopup, placeForm, popupPlace, userAbout, userName, openUserPopup, userForm, popupUser, validationConfig, popupImg } from '../components/constants.js';
+import { AreyousurePopup } from '../components/AreyousurePopup.js';
 
 import { Api } from '../components/Api.js';
 
@@ -71,6 +72,26 @@ const placeFormValidation = new FormValidator(validationConfig, placeForm);
 
 const userNameAbout = new UserInfo({ nameFromDoc: '.profile__title', aboutUserFromDoc: '.profile__subtitle' });
 
+//переменная с экземпляром класса для открытия попапа уточнения по удалению и удалению самой карточки с сервера 
+
+const confirmDeletePopup = new AreyousurePopup(surePopup, 
+                                                 (id, card) => {
+                                                    api
+                                                        .deleteCard(id)
+                                                        .then(() => {
+                                                            //console.log(card);
+                                                        })
+
+                                                        .catch((err) => {
+                                                            console.log(err);
+                                                        })
+                                                     
+                                                    }
+                                                ); 
+
+
+
+
 
 // Загрузка первых карточек с помощью Api. (OMG!)
 api
@@ -81,7 +102,7 @@ api
           renderer: (item) => {
              const listElement = createNewCard(item);
              cardList.addItem(listElement);
-             //console.log(item);
+             
           } 
         }, 
          elementsListContainer
@@ -161,12 +182,17 @@ const editUserPopup = new PopupWithForm(popupUser, (values) => {
         .finally(() => {
             editUserPopup.close()
         })
-    
-    
+       
 });
 
 
+
+
 //запуск методов на экземпляры классов
+
+//запуск метода по навешиванию слушателя на экземпляр класса AreyousurePopup
+
+confirmDeletePopup.setEventListeners();
 
 //запуск метода по навешиванию слушателя на экземпляр класса большого фото 
 
@@ -185,6 +211,7 @@ addNewPlace.setEventListeners();
 newAvatar.setEventListeners();
 
 //функции
+
 
 //функция по рендеру иконки удаления на карточке
 
@@ -211,7 +238,18 @@ function startValidation(item) {
 //базовая функция по созданию карточки с использованием класса Card. Используется для добавления карточек с сервера,добавления карточек пользователем и отображением данных пользователя (имя, профессия, аватарка) с сервера, получения данных о том на какую карточку вешать кнопку удаления. 
 
 function createNewCard(item) {
-    const newCard = new Card(item, '.template__elements-list', handleCardClick, userObj, userNameAbout.getUserId(), rendererDeleteButtonCard, );
+    const newCard = new Card(item,
+                             '.template__elements-list', 
+                             handleCardClick, 
+                             userObj, 
+                             userNameAbout.getUserId(), 
+                             rendererDeleteButtonCard,
+                            {
+                            handleDeleteIconClick: (id, card) => {
+                                confirmDeletePopup.open(id, card);
+                                
+                                }
+                             }, );
     return newCard.cardCreation();
 }
 

@@ -5,17 +5,18 @@
 
     //конструктор с данными карточки и селектором её template-элемента
 
-    constructor ( data, cardSelector, handleCardClick, userRender, userId, rendererDeleteButtonCard) {
+    constructor ( data, cardSelector, handleCardClick, userRender, userId, rendererDeleteButtonCard, {handleDeleteIconClick}) {
         this._name = data.name;
         this._link = data.link;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
         this._userRender = userRender;  
-        this._cardId = data._Id;
+        this.cardId = data._id;
         this._likes = data.likes;
         this.ownerId = data.owner._id;
         this.userId = userId;
         this._rendererDeleteButtonCard = rendererDeleteButtonCard;
+        this._handleDeleteIconClick = handleDeleteIconClick;
 
 
     }
@@ -43,23 +44,16 @@
         
 
         this._setEventListener()
+        console.log(this.element);
         return this.element;
     } 
 
-
-    //приватный метод по удалению карточки
-
-    _removeElement(evt) {
-        const targetItem = evt.target.closest('.elements__item');
-        targetItem.remove();
-    }
-
-    //приватный метод по управлению лайком
+    //публичный метод по управлению лайком
 
     _likeHeart(evt) {
         evt.target.classList.toggle('elements__heart-button_like');
     }
-
+    
     //приватный метод по добавлению слушателей событий
     
     _setEventListener() {
@@ -72,9 +66,11 @@
         });
 
         const removeButtonElement = this.element.querySelector('.elements__delete-photo');
-        removeButtonElement.addEventListener('click', this._removeElement);
+        removeButtonElement.addEventListener('click', () => {
+             this._handleDeleteIconClick(this.cardId, this.element)} );
 
         this._rendererDeleteButtonCard();
+        
 
         }
 

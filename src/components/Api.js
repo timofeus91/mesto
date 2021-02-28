@@ -124,6 +124,21 @@ export class Api {
        });
     }
 
+    //метод по удалению карточки
+
+    deleteCard(cardId) {
+        return fetch(`${this._url}cards/${cardId}/`, {
+            method: 'DELETE',
+            headers: this._headers,
+      }).then((res) => {
+           if (res.ok) {
+               return res.json()
+           }
+
+           return Promise.reject(`Сервер недоступен. Ошибка: ${res.status}.`);
+       });
+    }
+
 
 
 
