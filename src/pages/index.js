@@ -7,13 +7,13 @@ import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
-import { elementsListContainer, placeLink, placeName, openPlacePopup, placeForm, popupPlace, userAbout, userName, openUserPopup, userForm, popupUser, validationConfig, popupImg } from '../components/constants.js';
+import { elementsListContainer, openPlacePopup, placeForm, popupPlace, userAbout, userName, openUserPopup, userForm, popupUser, validationConfig, popupImg, avatarPopup, openAvatarPopup, avatarForm, surePopup, } from '../components/constants.js';
 import { AreyousurePopup } from '../components/AreyousurePopup.js';
 
 import { Api } from '../components/Api.js';
 
 
-//переменные в которых записаны создания экземпляров классов 
+//переменные в которых записаны создания экземпляров классов и прочие необходимые переменные
 
 
 //переменная в которую записан экземпляр класса Api для подключения Api
@@ -41,22 +41,7 @@ const userObj = api.getUserInfo()
                         console.log(err);
                     })
 
-                    
-
-
-//новые переменные , которые потом перенести в constants
-
-//переменные по попапу новой аватарки 
-const avatarPopup = document.querySelector('.popup_new-avatar');
-const openAvatarPopup = document.querySelector('.profile__avatar-edit');
-const avatarForm = avatarPopup.querySelector('.popup__form');
-const avatarLink = avatarPopup.querySelector('.popup__input_topform');
-
-//переменные по попапу уточнению
-const surePopup = document.querySelector('.popup_areyousure');
-const sureForm = surePopup.querySelector('.popup__form');
-
-
+                
 
 //переменная по создания экземпляра класса PopupWithImage для большого варианта фото
 
@@ -72,25 +57,29 @@ const placeFormValidation = new FormValidator(validationConfig, placeForm);
 
 const userNameAbout = new UserInfo({ nameFromDoc: '.profile__title', aboutUserFromDoc: '.profile__subtitle' });
 
+
 //переменная с экземпляром класса для открытия попапа уточнения по удалению и удалению самой карточки с сервера 
 
 const confirmDeletePopup = new AreyousurePopup(surePopup, 
                                                  (id, card) => {
+                                                    confirmDeletePopup.changeTextSubmitButton('Удаляю...')
                                                     api
                                                         .deleteCard(id)
                                                         .then(() => {
-                                                            //console.log(card);
+                                                            card.remove();
                                                         })
 
                                                         .catch((err) => {
                                                             console.log(err);
                                                         })
+
+                                                        .finally(() => {
+                                                            confirmDeletePopup.close();
+                                                            confirmDeletePopup.changeTextSubmitButton('Да');
+                                                        })
                                                      
                                                     }
                                                 ); 
-
-
-
 
 
 // Загрузка первых карточек с помощью Api. (OMG!)
@@ -119,6 +108,7 @@ api
 // Загрузка новой карточки с помощью Api
 const addNewPlace = new PopupWithForm(popupPlace, (values) => {
     const data = {name: values['popup-name-place'], link: values['popup-link-photo']};
+    addNewPlace.changeTextSubmitButton('Сохранение...');
     api
         .addNewCard(data)
         .then(data => {
@@ -137,6 +127,7 @@ const addNewPlace = new PopupWithForm(popupPlace, (values) => {
 
         .finally(() => {
             addNewPlace.close();
+            addNewPlace.changeTextSubmitButton('Сохранить');
         })
 
 });
@@ -145,6 +136,7 @@ const addNewPlace = new PopupWithForm(popupPlace, (values) => {
 //Смена аватара с помощью Api
 
 const newAvatar = new PopupWithForm(avatarPopup, (values) => {
+    newAvatar.changeTextSubmitButton('Сохранение...');
     const avatar = {link: values['new-avatar-photo']}
     
     api
@@ -159,6 +151,7 @@ const newAvatar = new PopupWithForm(avatarPopup, (values) => {
 
         .finally(() => {
             newAvatar.close();
+            newAvatar.changeTextSubmitButton('Сохранить');
         })
 
 }); 
@@ -168,6 +161,7 @@ const newAvatar = new PopupWithForm(avatarPopup, (values) => {
 //переменная с экземпляром класса PopupWithForm для попапа изменения имени-профессии при помощи APi 
 
 const editUserPopup = new PopupWithForm(popupUser, (values) => {
+    editUserPopup.changeTextSubmitButton('Сохранение...');
     const newUserInfo = { name: values['popup-name'], about: values['popup-about'] };
     api
         .editUserInfo(newUserInfo)
@@ -180,7 +174,8 @@ const editUserPopup = new PopupWithForm(popupUser, (values) => {
         })
 
         .finally(() => {
-            editUserPopup.close()
+            editUserPopup.close();
+            editUserPopup.changeTextSubmitButton('Сохранить');
         })
        
 });
@@ -247,9 +242,10 @@ function createNewCard(item) {
                             {
                             handleDeleteIconClick: (id, card) => {
                                 confirmDeletePopup.open(id, card);
-                                
-                                }
-                             }, );
+                                } 
+                            },
+                             api,
+                              );
     return newCard.cardCreation();
 }
 

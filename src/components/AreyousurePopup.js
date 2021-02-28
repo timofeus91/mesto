@@ -29,7 +29,7 @@ export class AreyousurePopup extends Popup {
         this._buttonDelete.addEventListener('submit', (evt) => {
             evt.preventDefault();
             this._deleteCard(this._currentCard, this._element);
-            this.close();
+            
         })
 
     }

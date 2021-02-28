@@ -12,6 +12,7 @@ export class PopupWithForm extends Popup {
         this._submitForm = submitForm;
         this._form = this._popup.querySelector('.popup__form');
         
+        
     }
 
        //приватный метод , который собирает данные всех полей формы и возвращает их
@@ -39,4 +40,6 @@ export class PopupWithForm extends Popup {
         super.close();
         this._form.reset();
     }
+
+    
 }

@@ -96,8 +96,8 @@ export class Api {
 
     //метод по установке лайка
 
-    putLike(card) {
-        return fetch(`${this._url}cards/likes${card._id}/`, {
+    putLike(cardId) {
+        return fetch(`${this._url}cards/likes/${cardId}/`, {
             method: 'PUT',
             headers: this._headers,
       }).then((res) => {
@@ -111,8 +111,8 @@ export class Api {
 
     //метод по снятию лайка
 
-    removeLike(card) {
-        return fetch(`${this._url}cards/likes${card._id}/`, {
+    removeLike(cardId) {
+        return fetch(`${this._url}cards/likes/${cardId}/`, {
             method: 'DELETE',
             headers: this._headers,
       }).then((res) => {
