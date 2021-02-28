@@ -10,6 +10,7 @@ export class Popup {
         this._handleMouseClose = this._handleMouseClose.bind(this);
         this._closePopup = this._popup.querySelector('.popup__close');
         this.close = this.close.bind(this);
+        this._submitButton = this._popup.querySelector('.popup__button');
     }
 
     //публичный метод open отвечающий за открытие попапа
@@ -49,5 +50,10 @@ export class Popup {
     setEventListeners() {
         this._closePopup.addEventListener('click', this.close);
 
+    }
+
+    //публичный метод для изменения текста кнопки при api
+    changeTextSubmitButton(text) {
+        this._submitButton.textContent = text;
     }
 }

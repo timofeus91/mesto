@@ -49,6 +49,6 @@ module.exports = {
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin(),
 
-  ],
+  ], 
   devtool: 'inline-source-map',
 } 

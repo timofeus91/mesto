@@ -4,6 +4,7 @@ export class UserInfo {
     constructor({ nameFromDoc, aboutUserFromDoc }) {
         this._nameFromDoc = document.querySelector(nameFromDoc);
         this._aboutUserFromDoc = document.querySelector(aboutUserFromDoc);
+        this._userAvatar = document.querySelector('.profile__avatar');
     }
 
     //публичный метод getUserInfo, который возвращает объект с данными пользователя
@@ -16,8 +17,23 @@ export class UserInfo {
     }
 
     //публичный метод setUserInfo, который принимает новые данные пользователя (имя, профессия) и добавляет их на страницу
-    setUserInfo(name, about) {
-        this._nameFromDoc.textContent = name;
-        this._aboutUserFromDoc.textContent = about;
+    setUserInfo(data) {
+        this._nameFromDoc.textContent = data.name;
+        this._aboutUserFromDoc.textContent = data.about;
+    }
+
+    //публичный метод setUserAvatar, который используется для смены аватарки на странице
+    setUserAvatar(avatar) {
+        this._userAvatar.src = avatar;
+    }
+
+    //публичный метод показывает id пользователя из обьекта с данными пользователя
+    setUserId(data) {
+        this._userId = data._id;
+    }
+
+    //публичный метод getUserId, который дает id пользователя в экземпляр Card
+    getUserId() {
+        return this._userId
     }
 }

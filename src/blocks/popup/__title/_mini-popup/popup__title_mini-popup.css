@@ -1,0 +1,10 @@
+
+.popup__title_mini-popup {
+    margin-left: 36px;
+}
+
+@media screen and (max-width: 540px) {
+.popup__title_mini-popup {
+    margin-left: 22px;
+}
+}
