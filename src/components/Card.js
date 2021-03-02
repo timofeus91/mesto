@@ -5,19 +5,20 @@
 
     //конструктор с данными карточки и селектором её template-элемента
 
-    constructor ( data, cardSelector, handleCardClick, userRender, userId, rendererDeleteButtonCard, { handleDeleteIconClick }, api, ) {
+    constructor ( data, cardSelector, handleCardClick, userRender, userId, rendererDeleteButtonCard, { handleDeleteIconClick }, api, checkLike) {
         this._name = data.name;
         this._link = data.link;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;  
         this.cardId = data._id;
-        this._likes = data.likes;
+        this.likes = data.likes;
         this.ownerId = data.owner._id;
         this.userId = userId;
         this._rendererDeleteButtonCard = rendererDeleteButtonCard;
         this._handleDeleteIconClick = handleDeleteIconClick;
         this._userRender = userRender;
         this._api = api; //!!!перепроверить slack!!!
+        this._checkLike = checkLike;
          
     }
 
@@ -40,11 +41,11 @@
         textElement.textContent = this._name;
         photoLink.src = this._link;
         photoLink.alt = this._name;
-        this._likeCounter.textContent = this._likes.length;
+        this._likeCounter.textContent = this.likes.length;
         
 
         this._setEventListener()
-        
+
         return this.element;
     } 
 
@@ -93,6 +94,8 @@
              this._handleDeleteIconClick(this.cardId, this.element)} );
 
         this._rendererDeleteButtonCard();
+
+        this._checkLike();
         
 
         }

@@ -26,21 +26,34 @@ const api = new Api({
     }
 });
 
+//пустая переменная для перезаписи чтобы добавить туда результат работы 3 методов и перенаправить в функцию по рендеру карточек
+let userObj;
 
-// переменная где хранится объект с данными пользователя.
-const userObj = api.getUserInfo()
-                    .then(data => {
-                        userNameAbout.setUserInfo(data)
-                        userNameAbout.setUserAvatar(data.avatar)
-                        userNameAbout.setUserId(data);
-                        
-                        
-                    })
+// метод для одновременной загрузки информации о пользователе и карточек.
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+        .then(([userInfo, cards])=>{
+            //создаем массив из выполняемых методов чтобы загрузить их результат в одну переменную
+            userObj = [userNameAbout.setUserInfo(userInfo), 
+            userNameAbout.setUserAvatar(userInfo.avatar), 
+            userNameAbout.setUserId(userInfo), ]
+            // 
+            
+            const cardList = new Section( 
+                { items: cards,
+                  renderer: (item) => {
+                     const listElement = createNewCard(item);
+                     cardList.addItem(listElement);
+                     
+                  } 
+                }, 
+                 elementsListContainer
+            )
+            cardList.renderItems();
+        })
 
-                    .catch((err) => {
-                        console.log(err);
-                    })
-
+        .catch((err) => {
+            console.log(err);
+        })
                 
 
 //переменная по создания экземпляра класса PopupWithImage для большого варианта фото
@@ -82,26 +95,6 @@ const confirmDeletePopup = new AreyousurePopup(surePopup,
                                                 ); 
 
 
-// Загрузка первых карточек с помощью Api. (OMG!)
-api
-    .getInitialCards()
-    .then(data => {
-    const cardList = new Section( 
-        { items: data,
-          renderer: (item) => {
-             const listElement = createNewCard(item);
-             cardList.addItem(listElement);
-             
-          } 
-        }, 
-         elementsListContainer
-    )
-    cardList.renderItems();
-
-   })
-   .catch((err) => {
-       console.log(err);
-   })
 
 
 
@@ -207,6 +200,16 @@ newAvatar.setEventListeners();
 
 //функции
 
+//функция по проверке ,ставил ли я лайк картинке или нет, при загрузке карточек
+
+function checkLike() {
+    this.likes.forEach((item) => {
+        if(item._id == this.userId) {
+            this.element.querySelector('.elements__heart-button').classList.add('elements__heart-button_like');
+        }
+    })
+}
+
 
 //функция по рендеру иконки удаления на карточке
 
@@ -245,6 +248,7 @@ function createNewCard(item) {
                                 } 
                             },
                              api,
+                             checkLike,
                               );
     return newCard.cardCreation();
 }
