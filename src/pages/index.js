@@ -27,16 +27,15 @@ const api = new Api({
 });
 
 //пустая переменная для перезаписи чтобы добавить туда результат работы 3 методов и перенаправить в функцию по рендеру карточек
-let userObj;
+let userId;
 
 // метод для одновременной загрузки информации о пользователе и карточек.
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-        .then(([userInfo, cards])=>{
-            //создаем массив из выполняемых методов чтобы загрузить их результат в одну переменную
-            userObj = [userNameAbout.setUserInfo(userInfo), 
-            userNameAbout.setUserAvatar(userInfo.avatar), 
-            userNameAbout.setUserId(userInfo), ]
-            // 
+        .then( ( [userInfo, cards] ) => {
+            userNameAbout.setUserInfo(userInfo); 
+            userNameAbout.setUserAvatar(userInfo.avatar); 
+            userId = userNameAbout.setUserId(userInfo);
+            
             
             const cardList = new Section( 
                 { items: cards,
@@ -200,25 +199,41 @@ newAvatar.setEventListeners();
 
 //функции
 
-//функция по проверке ,ставил ли я лайк картинке или нет, при загрузке карточек
+//функция по API работе с лайком
 
-function checkLike() {
-    this.likes.forEach((item) => {
-        if(item._id == this.userId) {
-            this.element.querySelector('.elements__heart-button').classList.add('elements__heart-button_like');
-        }
-    })
+function apiLike(card) {
+    const likeHeart = this.element.querySelector('.elements__heart-button');
+    if (likeHeart.classList.contains('elements__heart-button_like')) {
+        this.api
+                .removeLike(card)
+                .then((data) => {
+                    this.likeCounter.textContent = data.likes.length;
+                    likeHeart.classList.remove('elements__heart-button_like');
+                })
+                
+                .catch((err) => {
+                    console.log(err);
+                })
+
+
+            } else {
+                this.api
+                .putLike(card)
+                .then((data) => {
+                    this.likeCounter.textContent = data.likes.length;
+                    likeHeart.classList.add('elements__heart-button_like');
+                })
+                
+                .catch((err) => {
+                    console.log(err);
+                })
+            }
 }
 
 
-//функция по рендеру иконки удаления на карточке
 
-function rendererDeleteButtonCard() {
-    const deleteButton = this.element.querySelector('.elements__delete-photo');
-    if (this.ownerId === this.userId) {
-        deleteButton.classList.add('elements__delete-photo_active');
-    }
-}
+
+
 
 
 //функция для открытия большого варианта фото. Используется в классе Card . 
@@ -239,16 +254,17 @@ function createNewCard(item) {
     const newCard = new Card(item,
                              '.template__elements-list', 
                              handleCardClick, 
-                             userObj, 
+                             userId, 
                              userNameAbout.getUserId(), 
-                             rendererDeleteButtonCard,
+                             
                             {
                             handleDeleteIconClick: (id, card) => {
                                 confirmDeletePopup.open(id, card);
                                 } 
                             },
                              api,
-                             checkLike,
+                             
+                             apiLike,
                               );
     return newCard.cardCreation();
 }
